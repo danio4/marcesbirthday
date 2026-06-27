@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -133,6 +133,9 @@
     .hero-sub { font-size: clamp(.8rem,2.8vw,.95rem); font-weight: 700; color: #86efac; opacity: .55; }
     .hero-arrow { animation: ab 1.6s ease-in-out infinite; }
     @keyframes ab { 0%,100%{transform:translateY(0)} 50%{transform:translateY(9px)} }
+
+    /* video elements behave like img */
+    video { display: block; }
 
     /* GIFs floating inside hero */
     .hero-gif {
@@ -294,7 +297,7 @@
     .parade-track { display: flex; gap: clamp(1rem,3vw,1.8rem); animation: pscroll 28s linear infinite; width: max-content; }
     @keyframes pscroll { to { transform: translateX(-50%); } }
     .pch { flex-shrink: 0; }
-    .pch img { height: clamp(62px,16vw,95px); width: auto; filter: drop-shadow(0 3px 8px rgba(74,222,128,.22)); display: block; }
+    .pch video { height: clamp(62px,16vw,95px); width: auto; filter: drop-shadow(0 3px 8px rgba(74,222,128,.22)); display: block; }
 
     /* ════ MESSAGE ════ */
     #msg-section {
@@ -383,42 +386,26 @@
 <div id="confetti"></div>
 
 <!-- corner floaters -->
-<img class="cc" src="public/pinkiepie-pinkie-pie-dancing.gif"
-     style="bottom:2%;left:0;width:clamp(105px,22vw,165px);--d:3.8s;--r:-8deg;--dl:.1s" id="pinkie-corner">
-<img class="cc" src="public/nongdamgom-bear.gif"
-     style="bottom:2%;right:0;width:clamp(105px,22vw,165px);--d:4.2s;--r:7deg;--dl:.5s">
-<img class="cc" src="public/party-dancing.gif"
-     style="top:3%;right:1%;width:clamp(90px,18vw,140px);--d:3.2s;--r:10deg;--dl:.8s">
-<img class="cc" src="public/furret-cute.gif"
-     style="top:4%;left:1%;width:clamp(85px,17vw,132px);--d:4.6s;--r:-6deg;--dl:.3s">
+<video id="pinkie-corner" class="cc" autoplay loop muted playsinline style="bottom:2%;left:0;width:clamp(105px,22vw,165px);--d:3.8s;--r:-8deg;--dl:.1s"><source src="public/pinkiepie-pinkie-pie-dancing.mp4" type="video/mp4"></video>
+<video class="cc" autoplay loop muted playsinline style="bottom:2%;right:0;width:clamp(105px,22vw,165px);--d:4.2s;--r:7deg;--dl:.5s"><source src="public/nongdamgom-bear.mp4" type="video/mp4"></video>
+<video class="cc" autoplay loop muted playsinline style="top:3%;right:1%;width:clamp(90px,18vw,140px);--d:3.2s;--r:10deg;--dl:.8s"><source src="public/party-dancing.mp4" type="video/mp4"></video>
+<video class="cc" autoplay loop muted playsinline style="top:4%;left:1%;width:clamp(85px,17vw,132px);--d:4.6s;--r:-6deg;--dl:.3s"><source src="public/furret-cute.mp4" type="video/mp4"></video>
 
 <!-- ══ HERO ══ -->
 <section id="hero">
   <!-- hero GIFs — truly scattered, no grid -->
-  <img class="hero-gif" src="public/rainbow-dash.gif"
-       style="top:6%;left:20%;width:clamp(95px,19vw,148px);--hr:-11deg;--hd:3.4s;--hdl:0s">
-  <img class="hero-gif" src="public/nongdamgom-bear.gif"
-       style="top:28%;left:3%;width:clamp(75px,14vw,112px);--hr:5deg;--hd:3.1s;--hdl:.7s">
-  <img class="hero-gif" src="public/spin-charmander.gif"
-       style="top:85%;left:30%;width:clamp(88px,17vw,136px);--hr:-6deg;--hd:3.8s;--hdl:.4s">
-  <img class="hero-gif" src="public/jolly-jolly-dance.gif"
-       style="top:70%;left:5%;width:clamp(125px,13vw,105px);--hr:9deg;--hd:4.1s;--hdl:.2s">
-  <img class="hero-gif" src="public/mlp-fimapplejack dancing.gif"
-       style="top:20%;left:32%;width:clamp(82px,15vw,122px);--hr:-4deg;--hd:4.4s;--hdl:.9s">
-  <img class="hero-gif" src="public/derpy-mlp-dancing.gif"
-       style="top:66%;left:33%;width:clamp(78px,14vw,115px);--hr:7deg;--hd:3.6s;--hdl:.5s">
-  <img class="hero-gif" src="public/transparent-fluttershy-dancing.gif"
-       style="top:9%;right:21%;width:clamp(85px,16vw,130px);--hr:-8deg;--hd:4s;--hdl:.3s">
-  <img class="hero-gif" src="public/baile-insano-squirtle.gif"
-       style="top:50%;right:5%;width:clamp(78px,14vw,115px);--hr:4deg;--hd:3.7s;--hdl:.6s">
-  <img class="hero-gif" src="public/snorlax-snorlax-pokemon.gif"
-       style="top:22%;right:2%;width:clamp(95px,18vw,145px);--hr:-5deg;--hd:5s;--hdl:.1s">
-  <img class="hero-gif" src="public/mlp-my-little-pony-pinkipie-dancing in a banana suit.gif"
-       style="top:62%;right:9%;width:clamp(88px,17vw,138px);--hr:12deg;--hd:4.6s;--hdl:.8s">
-  <img class="hero-gif" src="public/arcanine.gif"
-       style="top:78%;right:20%;width:clamp(82px,15vw,125px);--hr:-7deg;--hd:3.9s;--hdl:.35s">
-  <img class="hero-gif" src="public/twilight-sparkle-crown-dacing with black glasses.gif"
-       style="top:45%;right:75%;width:clamp(78px,14vw,118px);--hr:3deg;--hd:4.3s;--hdl:.55s">
+  <video class="hero-gif" autoplay loop muted playsinline style="top:6%;left:20%;width:clamp(95px,19vw,148px);--hr:-11deg;--hd:3.4s;--hdl:0s"><source src="public/rainbow-dash.mp4" type="video/mp4"></video>
+  <video class="hero-gif" autoplay loop muted playsinline style="top:28%;left:3%;width:clamp(75px,14vw,112px);--hr:5deg;--hd:3.1s;--hdl:.7s"><source src="public/nongdamgom-bear.mp4" type="video/mp4"></video>
+  <video class="hero-gif" autoplay loop muted playsinline style="top:85%;left:30%;width:clamp(88px,17vw,136px);--hr:-6deg;--hd:3.8s;--hdl:.4s"><source src="public/spin-charmander.mp4" type="video/mp4"></video>
+  <video class="hero-gif" autoplay loop muted playsinline style="top:70%;left:5%;width:clamp(125px,13vw,105px);--hr:9deg;--hd:4.1s;--hdl:.2s"><source src="public/jolly-jolly-dance.mp4" type="video/mp4"></video>
+  <video class="hero-gif" autoplay loop muted playsinline style="top:20%;left:32%;width:clamp(82px,15vw,122px);--hr:-4deg;--hd:4.4s;--hdl:.9s"><source src="public/mlp-fimapplejack dancing.mp4" type="video/mp4"></video>
+  <video class="hero-gif" autoplay loop muted playsinline style="top:66%;left:33%;width:clamp(78px,14vw,115px);--hr:7deg;--hd:3.6s;--hdl:.5s"><source src="public/derpy-mlp-dancing.mp4" type="video/mp4"></video>
+  <video class="hero-gif" autoplay loop muted playsinline style="top:9%;right:21%;width:clamp(85px,16vw,130px);--hr:-8deg;--hd:4s;--hdl:.3s"><source src="public/transparent-fluttershy-dancing.mp4" type="video/mp4"></video>
+  <video class="hero-gif" autoplay loop muted playsinline style="top:50%;right:5%;width:clamp(78px,14vw,115px);--hr:4deg;--hd:3.7s;--hdl:.6s"><source src="public/baile-insano-squirtle.mp4" type="video/mp4"></video>
+  <video class="hero-gif" autoplay loop muted playsinline style="top:22%;right:2%;width:clamp(95px,18vw,145px);--hr:-5deg;--hd:5s;--hdl:.1s"><source src="public/snorlax-snorlax-pokemon.mp4" type="video/mp4"></video>
+  <video class="hero-gif" autoplay loop muted playsinline style="top:62%;right:9%;width:clamp(88px,17vw,138px);--hr:12deg;--hd:4.6s;--hdl:.8s"><source src="public/mlp-my-little-pony-pinkipie-dancing in a banana suit.mp4" type="video/mp4"></video>
+  <video class="hero-gif" autoplay loop muted playsinline style="top:78%;right:20%;width:clamp(82px,15vw,125px);--hr:-7deg;--hd:3.9s;--hdl:.35s"><source src="public/arcanine.mp4" type="video/mp4"></video>
+  <video class="hero-gif" autoplay loop muted playsinline style="top:45%;right:75%;width:clamp(78px,14vw,118px);--hr:3deg;--hd:4.3s;--hdl:.55s"><source src="public/twilight-sparkle-crown-dacing with black glasses.mp4" type="video/mp4"></video>
 
   <div class="hero-content">
     <h1 class="hero-title">Feliz<br>Cumpleaños</h1>
@@ -503,12 +490,10 @@
 
     <!-- izquierda: gif + foto marcedeverde con Rainbow Dash + gif -->
     <div class="cb" style="--r:-9deg;--ty:15px">
-      <img src="public/twilight-sparkle-crown-dacing with black glasses.gif"
-           style="height:clamp(88px,20vw,130px);filter:drop-shadow(0 4px 12px rgba(168,85,247,.4))">
+      <video autoplay loop muted playsinline style="height:clamp(88px,20vw,130px);filter:drop-shadow(0 4px 12px rgba(168,85,247,.4))"><source src="public/twilight-sparkle-crown-dacing with black glasses.mp4" type="video/mp4"></video>
     </div>
     <div class="cb" style="--r:5deg;--ty:-10px">
-      <img src="public/link-legend-of-zelda.gif"
-           style="height:clamp(80px,18vw,118px);filter:drop-shadow(0 4px 10px rgba(74,222,128,.45))">
+      <video autoplay loop muted playsinline style="height:clamp(80px,18vw,118px);filter:drop-shadow(0 4px 10px rgba(74,222,128,.45))"><source src="public/link-legend-of-zelda.mp4" type="video/mp4"></video>
     </div>
     <div class="cb" style="--r:-6deg;--ty:8px">
       <div class="ph-frame">
@@ -517,8 +502,7 @@
       </div>
     </div>
     <div class="cb" style="--r:7deg;--ty:-14px">
-      <img src="public/party-dancing.gif"
-           style="height:clamp(85px,19vw,125px);filter:drop-shadow(0 4px 10px rgba(244,114,182,.3))">
+      <video autoplay loop muted playsinline style="height:clamp(85px,19vw,125px);filter:drop-shadow(0 4px 10px rgba(244,114,182,.3))"><source src="public/party-dancing.mp4" type="video/mp4"></video>
     </div>
 
     <!-- CENTRO: marce1 más grande con Twilight -->
@@ -531,8 +515,7 @@
 
     <!-- derecha: foto marceunpocoverde con Pinkie + gifs -->
     <div class="cb" style="--r:-7deg;--ty:12px">
-      <img src="public/pikaçu.gif"
-           style="height:clamp(80px,18vw,118px);filter:drop-shadow(0 0 14px rgba(251,191,36,.65))">
+      <video autoplay loop muted playsinline style="height:clamp(80px,18vw,118px);filter:drop-shadow(0 0 14px rgba(251,191,36,.65))"><source src="public/pikaçu.mp4" type="video/mp4"></video>
     </div>
     <div class="cb" style="--r:4deg;--ty:-8px">
       <div class="ph-frame">
@@ -541,12 +524,10 @@
       </div>
     </div>
     <div class="cb" style="--r:-5deg;--ty:-16px">
-      <img src="public/zelda-legend-of-zelda.gif"
-           style="height:clamp(82px,18vw,120px);filter:drop-shadow(0 4px 10px rgba(251,191,36,.5))">
+      <video autoplay loop muted playsinline style="height:clamp(82px,18vw,120px);filter:drop-shadow(0 4px 10px rgba(251,191,36,.5))"><source src="public/zelda-legend-of-zelda.mp4" type="video/mp4"></video>
     </div>
     <div class="cb" style="--r:8deg;--ty:10px">
-      <img src="public/mlp-fimapplejack dancing.gif"
-           style="height:clamp(85px,19vw,125px);filter:drop-shadow(0 4px 10px rgba(251,191,36,.3))">
+      <video autoplay loop muted playsinline style="height:clamp(85px,19vw,125px);filter:drop-shadow(0 4px 10px rgba(251,191,36,.3))"><source src="public/mlp-fimapplejack dancing.mp4" type="video/mp4"></video>
     </div>
 
     <!-- segunda fila de gifs -->
@@ -555,44 +536,36 @@
            style="height:clamp(68px,15vw,98px);filter:drop-shadow(0 3px 10px rgba(244,114,182,.4))">
     </div>
     <div class="cb" style="--r:-4deg;--ty:16px">
-      <img src="public/spin-charmander.gif"
-           style="height:clamp(68px,15vw,95px);filter:drop-shadow(0 0 10px rgba(251,146,60,.55))">
+      <video autoplay loop muted playsinline style="height:clamp(68px,15vw,95px);filter:drop-shadow(0 0 10px rgba(251,146,60,.55))"><source src="public/spin-charmander.mp4" type="video/mp4"></video>
     </div>
     <div class="cb" style="--r:6deg;--ty:-10px">
-      <img src="public/derpy-mlp-dancing.gif"
-           style="height:clamp(82px,18vw,120px);filter:drop-shadow(0 4px 10px rgba(255,255,255,.2))">
+      <video autoplay loop muted playsinline style="height:clamp(82px,18vw,120px);filter:drop-shadow(0 4px 10px rgba(255,255,255,.2))"><source src="public/derpy-mlp-dancing.mp4" type="video/mp4"></video>
     </div>
     <div class="cb" style="--r:-10deg;--ty:8px">
-      <img src="public/furret-cute.gif"
-           style="height:clamp(72px,16vw,105px);filter:drop-shadow(0 0 8px rgba(251,191,36,.4))">
+      <video autoplay loop muted playsinline style="height:clamp(72px,16vw,105px);filter:drop-shadow(0 0 8px rgba(251,191,36,.4))"><source src="public/furret-cute.mp4" type="video/mp4"></video>
     </div>
     <div class="cb" style="--r:9deg;--ty:-12px">
       <img src="public/fluttershy.png"
            style="height:clamp(72px,16vw,105px);filter:drop-shadow(0 3px 10px rgba(255,255,255,.15))">
     </div>
     <div class="cb" style="--r:-5deg;--ty:20px">
-      <img src="public/baile-insano-squirtle.gif"
-           style="height:clamp(80px,18vw,118px);filter:drop-shadow(0 0 12px rgba(96,165,250,.5))">
+      <video autoplay loop muted playsinline style="height:clamp(80px,18vw,118px);filter:drop-shadow(0 0 12px rgba(96,165,250,.5))"><source src="public/baile-insano-squirtle.mp4" type="video/mp4"></video>
     </div>
     <div class="cb" style="--r:4deg;--ty:-8px">
-      <img src="public/arcanine.gif"
-           style="height:clamp(85px,19vw,125px);filter:drop-shadow(0 0 12px rgba(239,68,68,.5))">
+      <video autoplay loop muted playsinline style="height:clamp(85px,19vw,125px);filter:drop-shadow(0 0 12px rgba(239,68,68,.5))"><source src="public/arcanine.mp4" type="video/mp4"></video>
     </div>
     <div class="cb" style="--r:-6deg;--ty:6px">
-      <img src="public/mlp-my-little-pony-pinkipie-dancing in a banana suit.gif"
-           style="height:clamp(85px,19vw,122px)">
+      <video autoplay loop muted playsinline style="height:clamp(85px,19vw,122px)"><source src="public/mlp-my-little-pony-pinkipie-dancing in a banana suit.mp4" type="video/mp4"></video>
     </div>
     <div class="cb" style="--r:7deg;--ty:-14px">
-      <img src="public/malons-rose-malon-rose.gif"
-           style="height:clamp(80px,18vw,115px);filter:drop-shadow(0 4px 10px rgba(244,114,182,.4))">
+      <video autoplay loop muted playsinline style="height:clamp(80px,18vw,115px);filter:drop-shadow(0 4px 10px rgba(244,114,182,.4))"><source src="public/malons-rose-malon-rose.mp4" type="video/mp4"></video>
     </div>
     <div class="cb" style="--r:-8deg;--ty:10px">
       <img src="public/derpy.png"
            style="height:clamp(68px,15vw,95px);filter:drop-shadow(0 3px 8px rgba(255,255,255,.12))">
     </div>
     <div class="cb" style="--r:5deg;--ty:-6px">
-      <img src="public/transparent-fluttershy-dancing.gif"
-           style="height:clamp(80px,18vw,118px);filter:drop-shadow(0 4px 10px rgba(74,222,128,.35))">
+      <video autoplay loop muted playsinline style="height:clamp(80px,18vw,118px);filter:drop-shadow(0 4px 10px rgba(74,222,128,.35))"><source src="public/transparent-fluttershy-dancing.mp4" type="video/mp4"></video>
     </div>
   </div>
 </section>
@@ -608,10 +581,10 @@
 <section id="msg-section" class="section">
   <div class="msg-card">
     <div class="bears-row">
-      <img class="bear-gif" src="public/joke-bear-jokebear.gif"     style="--bd:.7s;--bdl:0s">
-      <img class="bear-gif" src="public/jokebear-nongdamgom.gif"    style="--bd:.85s;--bdl:.12s">
-      <img class="bear-gif" src="public/jokebearnote-joke-bear.gif" style="--bd:.76s;--bdl:.24s">
-      <img class="bear-gif" src="public/jokerbear-joke-bear.gif"    style="--bd:.92s;--bdl:.36s">
+      <video class="bear-gif" autoplay loop muted playsinline style="--bd:.7s;--bdl:0s"><source src="public/joke-bear-jokebear.mp4" type="video/mp4"></video>
+      <video class="bear-gif" autoplay loop muted playsinline style="--bd:.85s;--bdl:.12s"><source src="public/jokebear-nongdamgom.mp4" type="video/mp4"></video>
+      <video class="bear-gif" autoplay loop muted playsinline style="--bd:.76s;--bdl:.24s"><source src="public/jokebearnote-joke-bear.mp4" type="video/mp4"></video>
+      <video class="bear-gif" autoplay loop muted playsinline style="--bd:.92s;--bdl:.36s"><source src="public/jokerbear-joke-bear.mp4" type="video/mp4"></video>
     </div>
     <p class="msg-text">
     
@@ -628,13 +601,13 @@
     </p>
   </div>
   <div class="extra-bears">
-    <img src="public/nongdamgom-bear.gif"             style="height:clamp(48px,12vw,70px)">
-    <img src="public/jokebear-농담곰.gif"              style="height:clamp(48px,12vw,70px)">
-    <img src="public/신나는농담곰-정신사나운농담곰.gif"  style="height:clamp(48px,12vw,70px)">
-    <img src="public/bbibenho.gif"                     style="height:clamp(48px,12vw,70px)">
-    <img src="public/bear-so-cute-funny-point-flower-so-cute.gif" style="height:clamp(48px,12vw,70px)">
-    <img src="public/joke-bear-jokebear (1).gif"      style="height:clamp(48px,12vw,70px)">
-    <img src="public/jokebear-농담곰 (1).gif"         style="height:clamp(48px,12vw,70px)">
+    <video autoplay loop muted playsinline style="height:clamp(48px,12vw,70px)"><source src="public/nongdamgom-bear.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline style="height:clamp(48px,12vw,70px)"><source src="public/jokebear-농담곰.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline style="height:clamp(48px,12vw,70px)"><source src="public/신나는농담곰-정신사나운농담곰.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline style="height:clamp(48px,12vw,70px)"><source src="public/bbibenho.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline style="height:clamp(48px,12vw,70px)"><source src="public/bear-so-cute-funny-point-flower-so-cute.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline style="height:clamp(48px,12vw,70px)"><source src="public/joke-bear-jokebear (1).mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline style="height:clamp(48px,12vw,70px)"><source src="public/jokebear-농담곰 (1).mp4" type="video/mp4"></video>
   </div>
 </section>
 
@@ -763,8 +736,11 @@ const shuffled = ALL.sort(() => Math.random() - .5);
 const track = document.getElementById('parade-track');
 [...shuffled, ...shuffled].forEach(src => {
   const d = document.createElement('div'); d.className = 'pch';
-  const img = document.createElement('img'); img.src = src;
-  d.appendChild(img); track.appendChild(d);
+  const v = document.createElement('video');
+  v.autoplay = true; v.loop = true; v.muted = true; v.playsInline = true;
+  const s = document.createElement('source');
+  s.src = src.replace(/\.gif$/, '.mp4'); s.type = 'video/mp4';
+  v.appendChild(s); d.appendChild(v); track.appendChild(d);
 });
 
 // ── Card tilt ──
@@ -838,18 +814,16 @@ document.addEventListener('click', e => {
   if (Math.random() > .45) launchFirework();
 });
 
-// ── Pause hero GIFs when scrolled out of view ──
+// ── Pause hero videos when scrolled out of view ──
 const heroGifs = document.querySelectorAll('.hero-gif');
 const gifObserver = new IntersectionObserver(entries => {
   entries.forEach(({ target, isIntersecting }) => {
-    if (isIntersecting) {
-      if (target.dataset.src) { target.src = target.dataset.src; delete target.dataset.src; }
-    } else {
-      if (target.src && !target.dataset.src) { target.dataset.src = target.src; target.src = ''; }
-    }
+    if (isIntersecting) { target.play && target.play().catch(()=>{}); }
+    else                { target.pause && target.pause(); }
   });
 }, { threshold: 0 });
 heroGifs.forEach(g => gifObserver.observe(g));
 </script>
 </body>
 </html>
+
