@@ -79,7 +79,7 @@
 
     /* corner floaters */
     .cc {
-      position: fixed; pointer-events: none; z-index: 1;
+      position: fixed; pointer-events: none; z-index: 9980;
       animation: cc-float var(--d,4s) ease-in-out infinite var(--dl,0s);
     }
     @keyframes cc-float {
@@ -377,43 +377,41 @@
 
 <!-- corner floaters -->
 <img class="cc" src="public/pinkiepie-pinkie-pie-dancing.gif"
-     style="bottom:3%;left:0;width:clamp(75px,16vw,115px);--d:3.8s;--r:-8deg;--dl:.1s" id="pinkie-corner">
-<img class="cc" src="public/rainbow-dash.gif"
-     style="bottom:3%;right:0;width:clamp(75px,16vw,115px);--d:4.2s;--r:7deg;--dl:.5s">
+     style="bottom:2%;left:0;width:clamp(105px,22vw,165px);--d:3.8s;--r:-8deg;--dl:.1s" id="pinkie-corner">
+<img class="cc" src="public/zelda-legend-of-zelda.gif"
+     style="bottom:2%;right:0;width:clamp(105px,22vw,165px);--d:4.2s;--r:7deg;--dl:.5s">
 <img class="cc" src="public/pikaçu.gif"
-     style="top:5%;right:1%;width:clamp(62px,13vw,95px);--d:3.2s;--r:10deg;--dl:.8s">
+     style="top:3%;right:1%;width:clamp(90px,18vw,140px);--d:3.2s;--r:10deg;--dl:.8s">
 <img class="cc" src="public/furret-cute.gif"
-     style="top:7%;left:1%;width:clamp(58px,12vw,88px);--d:4.6s;--r:-6deg;--dl:.3s">
+     style="top:4%;left:1%;width:clamp(85px,17vw,132px);--d:4.6s;--r:-6deg;--dl:.3s">
 
 <!-- ══ HERO ══ -->
 <section id="hero">
-  <!-- GIFs scattered ALL across hero — top row -->
+  <!-- hero GIFs — truly scattered, no grid -->
   <img class="hero-gif" src="public/rainbow-dash.gif"
-       style="top:4%;left:1%;width:clamp(80px,16vw,130px);--hr:-7deg;--hd:3.4s;--hdl:0s">
-  <img class="hero-gif" src="public/pikaçu.gif"
-       style="top:2%;left:18%;width:clamp(72px,14vw,115px);--hr:5deg;--hd:3.9s;--hdl:.2s">
-  <img class="hero-gif" src="public/transparent-fluttershy-dancing.gif"
-       style="top:4%;right:18%;width:clamp(80px,16vw,128px);--hr:6deg;--hd:4s;--hdl:.3s">
-  <img class="hero-gif" src="public/furret-cute.gif"
-       style="top:3%;right:1%;width:clamp(72px,14vw,112px);--hr:-4deg;--hd:4.3s;--hdl:.1s">
-  <!-- middle row -->
+       style="top:6%;left:0%;width:clamp(95px,19vw,148px);--hr:-11deg;--hd:3.4s;--hdl:0s">
   <img class="hero-gif" src="public/nongdamgom-bear.gif"
-       style="top:38%;left:1%;width:clamp(72px,14vw,110px);--hr:6deg;--hd:3.2s;--hdl:.9s">
-  <img class="hero-gif" src="public/jolly-jolly-dance.gif"
-       style="top:36%;left:19%;width:clamp(68px,13vw,105px);--hr:-5deg;--hd:4.1s;--hdl:.4s">
-  <img class="hero-gif" src="public/derpy-mlp-dancing.gif"
-       style="top:36%;right:19%;width:clamp(68px,13vw,105px);--hr:4deg;--hd:3.6s;--hdl:.6s">
-  <img class="hero-gif" src="public/snorlax-snorlax-pokemon.gif"
-       style="top:38%;right:1%;width:clamp(78px,15vw,120px);--hr:-6deg;--hd:5s;--hdl:.7s">
-  <!-- bottom row -->
+       style="top:28%;left:3%;width:clamp(75px,14vw,112px);--hr:5deg;--hd:3.1s;--hdl:.7s">
   <img class="hero-gif" src="public/spin-charmander.gif"
-       style="bottom:12%;left:2%;width:clamp(72px,14vw,112px);--hr:-5deg;--hd:3.8s;--hdl:.5s">
+       style="top:55%;left:0%;width:clamp(88px,17vw,136px);--hr:-6deg;--hd:3.8s;--hdl:.4s">
+  <img class="hero-gif" src="public/jolly-jolly-dance.gif"
+       style="top:72%;left:16%;width:clamp(72px,13vw,105px);--hr:9deg;--hd:4.1s;--hdl:.2s">
   <img class="hero-gif" src="public/mlp-fimapplejack dancing.gif"
-       style="bottom:10%;left:20%;width:clamp(80px,16vw,128px);--hr:7deg;--hd:4.4s;--hdl:.3s">
+       style="top:14%;left:22%;width:clamp(82px,15vw,122px);--hr:-4deg;--hd:4.4s;--hdl:.9s">
+  <img class="hero-gif" src="public/derpy-mlp-dancing.gif"
+       style="top:42%;left:20%;width:clamp(78px,14vw,115px);--hr:7deg;--hd:3.6s;--hdl:.5s">
+  <img class="hero-gif" src="public/transparent-fluttershy-dancing.gif"
+       style="top:9%;right:21%;width:clamp(85px,16vw,130px);--hr:-8deg;--hd:4s;--hdl:.3s">
   <img class="hero-gif" src="public/baile-insano-squirtle.gif"
-       style="bottom:10%;right:20%;width:clamp(78px,15vw,122px);--hr:-4deg;--hd:3.7s;--hdl:.8s">
+       style="top:48%;right:18%;width:clamp(78px,14vw,115px);--hr:4deg;--hd:3.7s;--hdl:.6s">
+  <img class="hero-gif" src="public/snorlax-snorlax-pokemon.gif"
+       style="top:22%;right:2%;width:clamp(95px,18vw,145px);--hr:-5deg;--hd:5s;--hdl:.1s">
   <img class="hero-gif" src="public/mlp-my-little-pony-pinkipie-dancing in a banana suit.gif"
-       style="bottom:8%;right:2%;width:clamp(80px,16vw,128px);--hr:5deg;--hd:4.6s;--hdl:.2s">
+       style="top:62%;right:3%;width:clamp(88px,17vw,138px);--hr:12deg;--hd:4.6s;--hdl:.8s">
+  <img class="hero-gif" src="public/arcanine.gif"
+       style="top:78%;right:20%;width:clamp(82px,15vw,125px);--hr:-7deg;--hd:3.9s;--hdl:.35s">
+  <img class="hero-gif" src="public/twilight-sparkle-crown-dacing with black glasses.gif"
+       style="top:35%;right:0%;width:clamp(78px,14vw,118px);--hr:3deg;--hd:4.3s;--hdl:.55s">
 
   <div class="hero-content">
     <h1 class="hero-title">Feliz<br>Cumpleaños</h1>
