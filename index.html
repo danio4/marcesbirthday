@@ -99,6 +99,11 @@
         radial-gradient(ellipse 80% 50% at 50% 110%, rgba(74,222,128,.15) 0%, transparent 60%),
         radial-gradient(ellipse 45% 30% at 18% 8%, rgba(168,85,247,.1) 0%, transparent 55%);
     }
+    #hero::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 140px; pointer-events: none; z-index: 10;
+      background: linear-gradient(to bottom, transparent, #010e06);
+    }
     .hero-content {
       position: relative; z-index: 2;
       display: flex; flex-direction: column; align-items: center;
@@ -623,7 +628,7 @@
     <p class="msg-text">
     
       <strong>No es mucho pero espero que te guste</strong><br><br>
-      Nos conocimos en TikTok de forma random,<br>
+      Nos conocimos de una forma bien random,<br>
       pero desde el principio me caíste súper bien porque tenemos un humor bien típico JKAJKAJ<br>
       y un montón de cosas en común que fuimos descubriendo con el tiempo.<br><br>
 
