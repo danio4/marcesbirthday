@@ -2,459 +2,945 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🦄 Feliz Cumpleaños Marce!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>🌿 Feliz Cumpleaños Marce!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+    :root {
+      --g0: #bbf7d0; --g1: #4ade80; --g2: #16a34a; --g3: #052e16;
+      --glow: rgba(74,222,128,.45);
+      --purple: #a855f7; --pink: #f472b6; --gold: #fbbf24;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      min-height: 100vh;
-      background: radial-gradient(ellipse at 50% 0%, #2d0a5e 0%, #1a0a3e 50%, #0a0a2e 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Fredoka One', cursive;
-      overflow: hidden;
-      position: relative;
+      font-family: 'Nunito', sans-serif;
+      background: #010e06;
+      color: #fff;
+      overflow-x: hidden;
     }
 
-    /* ─── Stars ─── */
-    #stars {
+    /* ── canvas ── */
+    #bg-canvas {
       position: fixed; inset: 0;
       pointer-events: none; z-index: 0;
     }
-    .star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle var(--d, 2s) ease-in-out infinite;
-      animation-delay: var(--dl, 0s);
-    }
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.15; transform: scale(1); }
-      50%       { opacity: 1;    transform: scale(1.4); }
-    }
 
-    /* ─── Background floating emoji ─── */
-    #sparkle-bg {
-      position: fixed; inset: 0;
-      pointer-events: none; z-index: 0;
-    }
-    .sp-bg {
-      position: absolute;
-      animation: sp-float var(--d, 6s) ease-in-out infinite;
-      animation-delay: var(--dl, 0s);
-      opacity: 0.25;
-    }
-    @keyframes sp-float {
-      0%, 100% { transform: translateY(0) rotate(0deg);   opacity: 0.2; }
-      50%       { transform: translateY(-28px) rotate(180deg); opacity: 0.5; }
-    }
-
-    /* ─── Confetti ─── */
-    #confetti {
-      position: fixed; inset: 0;
-      pointer-events: none; z-index: 200;
-      overflow: hidden;
-    }
+    /* ── confetti ── */
+    #confetti { position: fixed; inset: 0; pointer-events: none; z-index: 500; overflow: hidden; }
     .cp {
-      position: absolute;
-      top: -12px;
-      animation: fall linear forwards;
+      position: absolute; top: -14px;
+      animation: cp-fall linear forwards;
     }
-    @keyframes fall {
-      0%   { transform: translateY(0)      rotate(0deg)   translateX(0);           opacity: 1;   }
-      100% { transform: translateY(110vh)  rotate(720deg) translateX(var(--drift)); opacity: 0.2; }
+    @keyframes cp-fall {
+      to { transform: translateY(110vh) rotate(810deg) translateX(var(--drift)); opacity: .15; }
     }
 
-    /* ─── Envelope scene ─── */
-    #env-scene {
-      position: relative; z-index: 10;
-      display: flex; flex-direction: column; align-items: center; gap: 1.8rem;
-      cursor: pointer;
-      animation: float-env 3s ease-in-out infinite;
-      transition: opacity 0.5s, transform 0.5s;
+    /* ── floating corner chars ── */
+    .corner-char {
+      position: fixed; pointer-events: none; z-index: 1;
+      animation: cc-float var(--d,4s) ease-in-out infinite;
+      animation-delay: var(--dl,0s);
     }
-    #env-scene.gone {
-      opacity: 0; transform: scale(0.4) translateY(60px);
-      pointer-events: none;
-    }
-    @keyframes float-env {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-18px); }
+    @keyframes cc-float {
+      0%,100% { transform: translateY(0) rotate(var(--r,−5deg)) scale(1); }
+      50%      { transform: translateY(-18px) rotate(calc(var(--r,-5deg) * -1)) scale(1.05); }
     }
 
-    .env-wrap { position: relative; width: 300px; height: 210px; }
-
-    /* body */
-    .env-body {
-      position: absolute; inset: 0;
-      background: linear-gradient(145deg, #f9e1ff, #e8c8f8);
-      border-radius: 8px;
-      border: 3px solid #d9a8f0;
-      box-shadow:
-        0 12px 40px rgba(200,80,255,.45),
-        0  0  80px rgba(160,60,255,.2);
-      overflow: hidden;
+    /* ════════════════════════════════
+       HERO
+    ════════════════════════════════ */
+    #hero {
+      position: relative; z-index: 2;
+      min-height: 100dvh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; gap: 1.4rem;
+      padding: 2rem 1.2rem;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 110%, rgba(74,222,128,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 20% 10%,  rgba(168,85,247,.1)  0%, transparent 60%);
     }
 
-    /* bottom-left / bottom-right triangles */
-    .env-bl {
-      position: absolute; bottom: 0; left: 0;
-      width: 0; height: 0;
-      border-left: 150px solid #d0a0e4;
-      border-top:  115px solid transparent;
-    }
-    .env-br {
-      position: absolute; bottom: 0; right: 0;
-      width: 0; height: 0;
-      border-right: 150px solid #d0a0e4;
-      border-top:   115px solid transparent;
+    .hero-eyebrow {
+      font-size: clamp(.75rem,2.8vw,.95rem);
+      font-weight: 900; letter-spacing: .25em; text-transform: uppercase;
+      color: var(--g1); opacity: .8;
     }
 
-    /* flap — sits on top */
-    .env-flap {
-      position: absolute; top: 0; left: 0; z-index: 3;
-      width: 0; height: 0;
-      border-left:  150px solid transparent;
-      border-right: 150px solid transparent;
-      border-top:   115px solid #e0b8f4;
-      transform-origin: 50% 0%;
-      transition: transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
-      filter: drop-shadow(0 3px 6px rgba(0,0,0,.12));
-    }
-    .env-flap.open { transform: rotateX(180deg); }
-
-    /* seal */
-    .env-seal {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 4;
-      width: 62px; height: 62px;
-      background: radial-gradient(circle at 35% 35%, #ff8fe4, #c040b8);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 30px;
-      box-shadow: 0 0 22px rgba(255,100,200,.7);
-      animation: seal-pulse 1.8s ease-in-out infinite;
-    }
-    @keyframes seal-pulse {
-      0%, 100% { box-shadow: 0 0 22px rgba(255,100,200,.6); }
-      50%       { box-shadow: 0 0 44px rgba(255,100,200,.9), 0 0 70px rgba(200,60,200,.35); }
-    }
-
-    .env-hint {
-      font-family: 'Nunito', sans-serif;
-      font-weight: 900;
-      font-size: 1.2rem;
-      color: #eac8ff;
-      text-shadow: 0 0 18px rgba(200,100,255,.9);
-      animation: hint-blink 2s ease-in-out infinite;
-    }
-    @keyframes hint-blink {
-      0%, 100% { opacity: .65; }
-      50%       { opacity: 1; }
-    }
-
-    /* ─── Card scene ─── */
-    #card-scene {
-      display: none;
-      position: relative; z-index: 10;
-      flex-direction: column; align-items: center;
-      width: min(96vw, 560px);
-      opacity: 0; transform: scale(0.8) translateY(30px);
-      transition: opacity 0.7s cubic-bezier(.34,1.56,.64,1),
-                  transform 0.7s cubic-bezier(.34,1.56,.64,1);
-    }
-    #card-scene.visible { opacity: 1; transform: scale(1) translateY(0); }
-
-    .card {
-      background: linear-gradient(145deg, #fff0fe, #eedeff, #fff0fe);
-      border-radius: 22px;
-      padding: 2.2rem 2rem;
-      text-align: center;
-      border: 3px solid #e0b0f8;
-      box-shadow:
-        0 20px 60px rgba(180,60,255,.3),
-        0  0  120px rgba(180,60,255,.12);
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-    }
-
-    /* shimmer overlay */
-    .card::before {
-      content: '';
-      position: absolute; inset: -50%;
-      background: conic-gradient(from 0deg, transparent 0deg, rgba(255,200,255,.08) 60deg, transparent 120deg);
-      animation: shimmer 10s linear infinite;
-      pointer-events: none;
-    }
-    @keyframes shimmer { to { transform: rotate(360deg); } }
-
-    .rainbow-bar {
-      height: 8px; border-radius: 4px;
-      background: linear-gradient(90deg,#f00,#f70,#ff0,#0f0,#00f,#8b00ff,#f00);
-      background-size: 300%;
-      animation: rb-move 3s linear infinite;
-      margin-bottom: 1.4rem;
-    }
-    @keyframes rb-move { to { background-position: 300%; } }
-
-    .pony-row {
-      display: flex; justify-content: center;
-      gap: .8rem; margin: .8rem 0;
-      flex-wrap: wrap;
-    }
-    .pony {
-      font-size: 2.6rem; display: inline-block;
-      animation: pony-bounce 1.1s ease-in-out infinite;
-    }
-    .pony:nth-child(2) { animation-delay: .18s; }
-    .pony:nth-child(3) { animation-delay: .36s; }
-    .pony:nth-child(4) { animation-delay: .54s; }
-    .pony:nth-child(5) { animation-delay: .72s; }
-    @keyframes pony-bounce {
-      0%, 100% { transform: translateY(0)   rotate(-4deg); }
-      50%       { transform: translateY(-14px) rotate(4deg); }
-    }
-
-    .birthday-text {
-      font-size: clamp(1.8rem, 5.5vw, 3rem);
-      background: linear-gradient(130deg, #c040b8, #7b2fbe, #ff6eb4);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1.2; margin: .4rem 0;
-      position: relative; z-index: 1;
-    }
-
-    .name-text {
-      font-size: clamp(2.8rem, 9vw, 5rem);
-      background: linear-gradient(130deg, #ff6eb4, #c040b8, #7b2fbe, #ff6eb4);
-      background-size: 300%;
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: name-move 3s linear infinite;
-      position: relative; z-index: 1;
-      line-height: 1.1;
-    }
-    @keyframes name-move { to { background-position: 300%; } }
-
-    .cutie-row {
-      display: flex; justify-content: center;
-      gap: 2rem; flex-wrap: wrap;
-      margin: 1.1rem 0;
-    }
-    .cutie {
-      display: flex; flex-direction: column; align-items: center; gap: .3rem;
-    }
-    .cutie svg { animation: spin-cm 5s linear infinite; }
-    .cutie:nth-child(2) svg { animation-direction: reverse; animation-duration: 7s; }
-    .cutie:nth-child(3) svg { animation-duration: 6s; }
-    @keyframes spin-cm { to { transform: rotate(360deg); } }
-    .cutie-name {
-      font-family: 'Nunito', sans-serif;
-      font-size: .72rem; font-weight: 900;
-      color: #c040b8; letter-spacing: .5px;
-    }
-
-    .msg {
-      font-family: 'Nunito', sans-serif;
-      font-size: clamp(.9rem, 2.4vw, 1.05rem);
-      font-weight: 700;
-      color: #5e1a82;
-      line-height: 1.7;
-      margin: 1rem 0;
-      position: relative; z-index: 1;
-    }
-
-    .sp-row {
-      font-size: 1.4rem;
-      letter-spacing: .3rem;
-      margin: .4rem 0;
-    }
-
-    /* ─── Replay button ─── */
-    #replay-btn {
-      display: none;
-      margin-top: 1rem;
-      padding: .7rem 2rem;
-      background: linear-gradient(135deg, #c040b8, #7b2fbe);
-      color: white;
-      border: none; border-radius: 50px;
+    .hero-title {
       font-family: 'Fredoka One', cursive;
-      font-size: 1.1rem;
-      cursor: pointer;
-      box-shadow: 0 6px 24px rgba(180,60,255,.4);
-      transition: transform .2s, box-shadow .2s;
+      font-size: clamp(3.2rem,13vw,7.5rem);
+      line-height: .95;
+      background: linear-gradient(140deg,#bbf7d0,#4ade80,#16a34a,#86efac);
+      background-size: 300%;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: title-shift 5s linear infinite;
+      filter: drop-shadow(0 0 28px var(--glow));
+    }
+    @keyframes title-shift { to { background-position: 300%; } }
+
+    .hero-name {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(3rem,14vw,6.5rem);
+      background: linear-gradient(140deg,#f472b6,#a855f7,#4ade80,#f472b6);
+      background-size: 300%;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: name-shift 4s linear infinite;
+      filter: drop-shadow(0 0 25px rgba(244,114,182,.5));
+    }
+    @keyframes name-shift { to { background-position: 300%; } }
+
+    .hero-sub {
+      font-size: clamp(.9rem,3vw,1.1rem);
+      font-weight: 700; color: #d1fae5; opacity: .7;
+      max-width: 340px;
+    }
+
+    .scroll-arrow {
+      margin-top: .5rem; font-size: 2rem;
+      animation: arr-bounce 1.6s ease-in-out infinite;
+    }
+    @keyframes arr-bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
+
+    /* ════════════════════════════════
+       SECTION BASE
+    ════════════════════════════════ */
+    .section {
+      position: relative; z-index: 2;
+      padding: clamp(3rem,8vw,5rem) clamp(1rem,5vw,2.5rem);
+    }
+
+    .s-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(1.6rem,5.5vw,2.8rem);
+      text-align: center;
+      color: var(--g1);
+      text-shadow: 0 0 28px var(--glow);
+      margin-bottom: clamp(1.5rem,5vw,2.5rem);
+    }
+
+    /* ════════════════════════════════
+       LEGENDARY CARD
+    ════════════════════════════════ */
+    #card-section {
+      display: flex; flex-direction: column; align-items: center;
+      background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(74,222,128,.06) 0%, transparent 70%);
+    }
+
+    .card-scene {
+      width: min(340px, 88vw);
+      aspect-ratio: 63/88;
+      perspective: 900px;
+      cursor: grab;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .poke-card {
+      width: 100%; height: 100%;
+      position: relative;
+      border-radius: 4.5%/3.2%;
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform .12s ease-out, box-shadow .12s ease-out;
+
+      background:
+        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(74,222,128,.22) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(168,85,247,.12) 0%, transparent 60%),
+        linear-gradient(160deg,#0b2e17,#143d20,#0d2a18,#1a4d28,#0b2e17);
+
+      box-shadow:
+        0 0 0 2.5px #4ade80,
+        0 0 0 5px rgba(74,222,128,.3),
+        0 30px 70px rgba(0,0,0,.75),
+        0 0 90px rgba(74,222,128,.2);
+    }
+
+    /* foil shimmer */
+    .card-foil {
+      position: absolute; inset: 0; border-radius: inherit;
+      background:
+        radial-gradient(circle at var(--mx,50%) var(--my,50%),
+          rgba(255,255,255,.18) 0%,
+          rgba(74,222,128,.14) 18%,
+          rgba(168,85,247,.12) 36%,
+          rgba(244,114,182,.10) 54%,
+          rgba(96,165,250,.08) 72%,
+          transparent 80%
+        );
+      mix-blend-mode: screen;
+      pointer-events: none; z-index: 10;
+      opacity: 0; transition: opacity .3s;
+    }
+    /* rainbow lines */
+    .card-lines {
+      position: absolute; inset: 0; border-radius: inherit;
+      background: repeating-linear-gradient(
+        calc(var(--angle,30) * 1deg),
+        transparent 0%,
+        rgba(255,255,255,.025) 2%,
+        transparent 4%
+      );
+      mix-blend-mode: screen;
+      pointer-events: none; z-index: 9;
+      opacity: 0; transition: opacity .3s;
+    }
+    .poke-card:hover .card-foil,
+    .poke-card:hover .card-lines,
+    .poke-card.active .card-foil,
+    .poke-card.active .card-lines { opacity: 1; }
+
+    /* card content */
+    .card-inner {
+      position: absolute; inset: 0; border-radius: inherit;
+      padding: 3.8% 3.8%;
+      display: flex; flex-direction: column; gap: 1.8%;
+      z-index: 5;
+    }
+
+    .card-header {
+      display: flex; align-items: center; gap: 4px;
+      justify-content: space-between;
+    }
+    .card-badge {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(.42rem,1.4vw,.58rem);
+      font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+      color: #fbbf24;
+      border: 1px solid rgba(251,191,36,.45);
+      padding: 1px 5px; border-radius: 4px;
+      background: rgba(0,0,0,.35);
+      flex-shrink: 0;
+    }
+    .card-name {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(.85rem,3.2vw,1.4rem);
+      background: linear-gradient(130deg,#bbf7d0,#4ade80,#86efac);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      filter: drop-shadow(0 0 6px rgba(74,222,128,.7));
+      flex: 1; text-align: center;
+    }
+    .card-hp {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(.5rem,1.8vw,.78rem);
+      color: #bbf7d0; white-space: nowrap; flex-shrink: 0;
+    }
+    .card-hp b { font-size: 1.45em; color: #4ade80; text-shadow: 0 0 8px var(--glow); }
+
+    .card-type-row {
+      display: flex; align-items: center; gap: 3px;
+    }
+    .ti {
+      width: clamp(10px,3vw,15px); height: clamp(10px,3vw,15px);
+      border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+      font-size: .6em; font-weight: 900; flex-shrink: 0;
+    }
+    .ti-grass { background: radial-gradient(#4ade80,#16a34a); }
+    .ti-star  { background: radial-gradient(#fbbf24,#d97706); }
+    .type-label {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(.4rem,1.3vw,.55rem); font-weight: 900;
+      color: #86efac;
+    }
+
+    .card-art {
+      position: relative; border-radius: 3%;
+      overflow: hidden;
+      border: 2px solid rgba(74,222,128,.5);
+      box-shadow: 0 0 20px rgba(74,222,128,.3), inset 0 0 20px rgba(74,222,128,.06);
+      flex: 0 0 46%;
+    }
+    .card-art img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block;
+    }
+    .card-art::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg,transparent 30%,rgba(74,222,128,.07) 50%,transparent 70%);
+      background-size: 200% 200%;
+      animation: art-glint 4s ease-in-out infinite;
+    }
+    @keyframes art-glint {
+      0%,100% { background-position: 0% 0%; }
+      50%      { background-position: 100% 100%; }
+    }
+
+    .card-ability {
+      background: rgba(0,0,0,.38);
+      border: 1px solid rgba(74,222,128,.22);
+      border-radius: 3px;
+      padding: clamp(2px,1.2vw,5px) clamp(3px,1.5vw,6px);
+    }
+    .ab-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 3px;
+    }
+    .ab-icons { display: flex; gap: 2px; align-items: center; }
+    .ab-name {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(.6rem,2vw,.88rem); color: #d1fae5;
+      flex: 1; padding-left: 3px;
+    }
+    .ab-dmg {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(.65rem,2.2vw,.92rem);
+      color: #4ade80; text-shadow: 0 0 8px var(--glow);
+    }
+    .ab-desc {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(.4rem,1.3vw,.55rem); font-weight: 700;
+      color: #d1fae5; opacity: .75; margin-top: 2px; line-height: 1.3;
+    }
+
+    .card-divider {
+      border: none; border-top: 1px solid rgba(74,222,128,.18); margin: 0;
+    }
+
+    .card-stats {
+      display: flex; justify-content: space-between;
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(.38rem,1.2vw,.52rem); font-weight: 700;
+      color: #d1fae5; opacity: .85;
+    }
+    .stat-lbl { opacity: .6; }
+
+    .card-rule {
+      background: linear-gradient(135deg,rgba(74,222,128,.12),rgba(168,85,247,.08));
+      border: 1px solid rgba(74,222,128,.3); border-radius: 3px;
+      padding: clamp(2px,1.2vw,5px) clamp(3px,1.5vw,6px);
+    }
+    .rule-header {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(.5rem,1.6vw,.68rem); color: #4ade80;
+      display: block; margin-bottom: 2px;
+    }
+    .rule-body {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(.38rem,1.2vw,.52rem); font-weight: 700;
+      color: #d1fae5; opacity: .8; line-height: 1.35;
+    }
+
+    /* sparkle on hover */
+    .cspark {
+      position: absolute; border-radius: 50%; pointer-events: none; z-index: 20;
+      animation: cspark-fly var(--d,.9s) ease-out forwards;
+    }
+    @keyframes cspark-fly {
+      0%   { transform: translate(0,0) scale(0); opacity: 1; }
+      100% { transform: translate(var(--tx,20px),var(--ty,-40px)) scale(0); opacity: 0; }
+    }
+
+    .card-hint {
+      font-size: clamp(.72rem,2.2vw,.85rem); font-weight: 700;
+      color: #86efac; opacity: .55; text-align: center; margin-top: .5rem;
+    }
+
+    /* ════════════════════════════════
+       GALLERY
+    ════════════════════════════════ */
+    #gallery {
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(168,85,247,.07) 0%, transparent 65%);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(.7rem,2.5vw,1.2rem);
+      max-width: 860px; margin-inline: auto;
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid .gi:first-child { grid-column: span 2; }
+    }
+
+    .gi {
+      position: relative; border-radius: 14px; overflow: hidden;
+      aspect-ratio: 3/4;
+      border: 2px solid rgba(74,222,128,.28);
+      box-shadow: 0 8px 28px rgba(0,0,0,.55), 0 0 24px rgba(74,222,128,.08);
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
+    }
+    .gi:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 20px 50px rgba(0,0,0,.65), 0 0 45px rgba(74,222,128,.22);
+    }
+    .gi img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;
+    }
+    .gi::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.45) 0%, transparent 55%);
+    }
+    .gi-label {
+      position: absolute; bottom: .6rem; left: 0; right: 0;
+      text-align: center; z-index: 1;
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(.75rem,2.5vw,1rem); color: #bbf7d0;
+      text-shadow: 0 1px 6px rgba(0,0,0,.8);
+    }
+
+    /* ════════════════════════════════
+       PARADE
+    ════════════════════════════════ */
+    #parade {
+      overflow: hidden;
+      padding-block: clamp(2rem,5vw,3.5rem);
+      background: linear-gradient(180deg,transparent,rgba(74,222,128,.035),transparent);
+    }
+
+    .parade-track {
+      display: flex; gap: clamp(1.2rem,4vw,2.2rem);
+      animation: p-scroll 30s linear infinite;
+      width: max-content;
+    }
+    @keyframes p-scroll { to { transform: translateX(-50%); } }
+
+    .pchar {
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      flex-shrink: 0;
+    }
+    .pchar img {
+      height: clamp(65px,17vw,105px); width: auto;
+      filter: drop-shadow(0 4px 10px rgba(74,222,128,.28));
+    }
+    .pchar span {
+      font-size: clamp(.58rem,1.8vw,.75rem); font-weight: 900;
+      color: #86efac; text-align: center;
+    }
+
+    /* ════════════════════════════════
+       POKEMON TEAM
+    ════════════════════════════════ */
+    #pokemon {
+      background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(251,191,36,.05) 0%, transparent 65%);
+      display: flex; flex-direction: column; align-items: center;
+    }
+
+    .poke-grid {
+      display: flex; justify-content: center;
+      gap: clamp(.8rem,3vw,1.8rem); flex-wrap: wrap;
+      max-width: 700px;
+    }
+    .poke-item {
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: clamp(.8rem,3vw,1.2rem) clamp(.6rem,2.5vw,1rem);
+      transition: transform .25s, box-shadow .25s;
+      min-width: clamp(70px,18vw,100px);
+    }
+    .poke-item:hover {
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 12px 35px rgba(0,0,0,.5), 0 0 20px var(--pg,rgba(74,222,128,.3));
+    }
+    .poke-item img { height: clamp(55px,14vw,80px); width: auto; }
+    .poke-item span {
+      font-size: clamp(.65rem,2vw,.8rem); font-weight: 900;
+      color: var(--pc, #86efac); text-align: center;
+    }
+
+    /* ════════════════════════════════
+       MESSAGE
+    ════════════════════════════════ */
+    #msg-section {
+      display: flex; flex-direction: column; align-items: center; gap: 2rem;
+      text-align: center;
+      background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(168,85,247,.1) 0%, transparent 65%);
+    }
+
+    .msg-card {
+      position: relative; overflow: hidden;
+      background: rgba(255,255,255,.035);
+      border: 2px solid rgba(74,222,128,.22);
+      border-radius: 24px;
+      padding: clamp(1.5rem,5vw,2.8rem);
+      max-width: 580px; width: 100%;
+    }
+    .msg-card::before {
+      content: '';
+      position: absolute; inset: -60%;
+      background: conic-gradient(from 0deg, transparent, rgba(74,222,128,.04), transparent);
+      animation: mc-spin 14s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes mc-spin { to { transform: rotate(360deg); } }
+
+    .bears-row {
+      display: flex; justify-content: center;
+      gap: clamp(.6rem,3vw,1.2rem); flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .bear-gif {
+      height: clamp(55px,16vw,85px);
+      filter: drop-shadow(0 4px 12px rgba(74,222,128,.25));
+      animation: b-dance var(--bd,.8s) ease-in-out infinite alternate;
+      animation-delay: var(--bdl,0s);
+    }
+    @keyframes b-dance {
+      0%   { transform: rotate(-9deg) scale(1); }
+      100% { transform: rotate(9deg) scale(1.07); }
+    }
+
+    .msg-text {
+      font-size: clamp(.92rem,2.8vw,1.12rem);
+      font-weight: 700; color: #d1fae5; line-height: 1.85;
       position: relative; z-index: 1;
     }
-    #replay-btn:hover {
-      transform: scale(1.06);
-      box-shadow: 0 10px 30px rgba(180,60,255,.55);
+    .msg-text strong {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.25em; color: #4ade80;
+      text-shadow: 0 0 14px var(--glow);
+    }
+    .msg-text .purple { color: #c084fc; }
+    .msg-text .pink   { color: #f9a8d4; }
+
+    .extra-bears {
+      display: flex; justify-content: center;
+      gap: clamp(.6rem,3vw,1.2rem); flex-wrap: wrap;
+    }
+
+    /* ════════════════════════════════
+       MLP CORNER (bonus section)
+    ════════════════════════════════ */
+    #mlp-corner {
+      display: flex; flex-direction: column; align-items: center; gap: 2rem;
+      background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(244,114,182,.06) 0%, transparent 65%);
+    }
+
+    .mlp-grid {
+      display: flex; gap: clamp(.8rem,3vw,1.8rem); flex-wrap: wrap; justify-content: center;
+    }
+    .mlp-item {
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(244,114,182,.15);
+      border-radius: 16px;
+      padding: clamp(.7rem,2.5vw,1.1rem);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .mlp-item:hover {
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 12px 35px rgba(0,0,0,.5), 0 0 22px rgba(244,114,182,.25);
+    }
+    .mlp-item img { height: clamp(60px,16vw,88px); width: auto; }
+    .mlp-item span {
+      font-size: clamp(.62rem,1.9vw,.78rem); font-weight: 900; color: #f9a8d4;
+    }
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+    footer {
+      position: relative; z-index: 2;
+      text-align: center; padding: 2rem 1rem;
+      font-size: .78rem; color: rgba(255,255,255,.18);
     }
   </style>
 </head>
 <body>
 
-<div id="stars"></div>
-<div id="sparkle-bg"></div>
+<canvas id="bg-canvas"></canvas>
 <div id="confetti"></div>
 
-<!-- ── Envelope ── -->
-<div id="env-scene" onclick="openEnvelope()">
-  <div class="env-wrap">
-    <div class="env-body">
-      <div class="env-bl"></div>
-      <div class="env-br"></div>
-      <div class="env-seal">🦄</div>
+<!-- Corner floaters -->
+<img class="corner-char" src="public/pinkiepie-pinkie-pie-dancing.gif"
+     style="bottom:3%;left:0;width:clamp(48px,11vw,80px);--d:3.8s;--r:-8deg;--dl:.1s">
+<img class="corner-char" src="public/rainbow-dash.gif"
+     style="bottom:3%;right:0;width:clamp(48px,11vw,80px);--d:4.2s;--r:7deg;--dl:.5s">
+<img class="corner-char" src="public/pikaçu.gif"
+     style="top:5%;right:1%;width:clamp(42px,9vw,70px);--d:3.2s;--r:10deg;--dl:.8s">
+<img class="corner-char" src="public/furret-cute.gif"
+     style="top:7%;left:1%;width:clamp(40px,9vw,65px);--d:4.6s;--r:-6deg;--dl:.3s">
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <p class="hero-eyebrow">✨ para la persona más especial del universo ✨</p>
+  <h1 class="hero-title">Feliz<br>Cumpleaños</h1>
+  <p class="hero-name">Marce 🌿</p>
+  <p class="hero-sub">Que este día sea tan brillante como tú</p>
+  <div class="scroll-arrow">⬇️</div>
+</section>
+
+<!-- ══════════ LEGENDARY CARD ══════════ -->
+<section id="card-section" class="section">
+  <h2 class="s-title">⚡ Tu Carta Legendaria ⚡</h2>
+
+  <div class="card-scene" id="card-scene">
+    <div class="poke-card" id="poke-card">
+      <div class="card-foil"></div>
+      <div class="card-lines"></div>
+      <div class="card-inner">
+
+        <div class="card-header">
+          <span class="card-badge">⭐ LEGENDARIA</span>
+          <span class="card-name">Marce ✨</span>
+          <span class="card-hp"><b>∞</b> PS</span>
+        </div>
+
+        <div class="card-type-row">
+          <span class="ti ti-grass">🌿</span>
+          <span class="ti ti-star">⭐</span>
+          <span class="type-label">&nbsp;Verde · Legendario · Shiny</span>
+        </div>
+
+        <div class="card-art">
+          <img src="public/marcedeverde.jpg" alt="Marce" id="card-img">
+        </div>
+
+        <div class="card-ability">
+          <div class="ab-row">
+            <div class="ab-icons">
+              <span class="ti ti-grass" style="width:9px;height:9px;font-size:.55em">🌿</span>
+              <span class="ti ti-grass" style="width:9px;height:9px;font-size:.55em">🌿</span>
+            </div>
+            <span class="ab-name">Magia de la Amistad</span>
+            <span class="ab-dmg">💚</span>
+          </div>
+          <p class="ab-desc">Todos los que la rodean se llenan de alegría automáticamente. Este efecto no puede ser cancelado ni resistido.</p>
+        </div>
+
+        <div class="card-ability">
+          <div class="ab-row">
+            <div class="ab-icons">
+              <span class="ti ti-grass" style="width:9px;height:9px;font-size:.55em">🌿</span>
+              <span class="ti ti-star"  style="width:9px;height:9px;font-size:.55em">⭐</span>
+            </div>
+            <span class="ab-name">Floración Eterna</span>
+            <span class="ab-dmg">∞×</span>
+          </div>
+          <p class="ab-desc">Por cada año de vida este Pokémon se vuelve más brillante y más poderoso. Daño: ilimitado.</p>
+        </div>
+
+        <hr class="card-divider">
+
+        <div class="card-stats">
+          <span><span class="stat-lbl">Debilidad</span> 🌸 +0</span>
+          <span><span class="stat-lbl">Resistencia</span> —</span>
+          <span><span class="stat-lbl">Retirada</span> ✨ 0</span>
+        </div>
+
+        <div class="card-rule">
+          <span class="rule-header">Regla Legendaria ✨</span>
+          <span class="rule-body">Cuando Marce entra al campo todos sonríen. Su rival recibe <b style="color:#4ade80">∞ puntos</b> de envidia y abandona la partida.</span>
+        </div>
+
+      </div><!-- /card-inner -->
+    </div><!-- /poke-card -->
+  </div><!-- /card-scene -->
+
+  <p class="card-hint">🖱️ mueve el cursor sobre la carta &nbsp;·&nbsp; 📱 inclina el teléfono</p>
+</section>
+
+<!-- ══════════ GALLERY ══════════ -->
+<section id="gallery" class="section">
+  <h2 class="s-title">📸 La Protagonista</h2>
+  <div class="gallery-grid">
+    <div class="gi">
+      <img src="public/marce1.jpg" alt="Marce">
+      <span class="gi-label">✨ Marce ✨</span>
     </div>
-    <div class="env-flap" id="env-flap"></div>
+    <div class="gi">
+      <img src="public/marcedeverde.jpg" alt="Marce de verde">
+      <span class="gi-label">💚 Verde &amp; Hermosa</span>
+    </div>
+    <div class="gi">
+      <img src="public/marceunpocoverde.jpg" alt="Marce un poco verde">
+      <span class="gi-label">🌿 Siempre verde</span>
+    </div>
   </div>
-  <p class="env-hint">✨ Haz clic para abrir ✨</p>
-</div>
+</section>
 
-<!-- ── Birthday card ── -->
-<div id="card-scene">
-  <div class="card">
-    <div class="rainbow-bar"></div>
-
-    <div class="pony-row">
-      <span class="pony">🦄</span>
-      <span class="pony">🌈</span>
-      <span class="pony">⭐</span>
-      <span class="pony">🌈</span>
-      <span class="pony">🦄</span>
-    </div>
-
-    <div class="birthday-text">✨ Feliz Cumpleaños ✨</div>
-    <div class="name-text">Marce!</div>
-
-    <div class="sp-row">💜 🌟 💜 🌟 💜</div>
-
-    <!-- Cutie marks SVG -->
-    <div class="cutie-row">
-      <!-- Twilight Sparkle — 6-point star -->
-      <div class="cutie">
-        <svg width="48" height="48" viewBox="0 0 48 48">
-          <polygon points="24,4 27.5,19 43,19 30,28.5 34.5,44 24,34 13.5,44 18,28.5 5,19 20.5,19"
-                   fill="#7B2FBE" stroke="#5a1a9e" stroke-width="1.5" stroke-linejoin="round"/>
-        </svg>
-        <span class="cutie-name">Twilight</span>
-      </div>
-      <!-- Rainbow Dash — lightning bolt -->
-      <div class="cutie">
-        <svg width="48" height="48" viewBox="0 0 48 48">
-          <polygon points="30,4 14,26 24,26 18,46 38,22 27,22"
-                   fill="#FFD700" stroke="#FFA500" stroke-width="1.5" stroke-linejoin="round"/>
-        </svg>
-        <span class="cutie-name">Rainbow</span>
-      </div>
-      <!-- Pinkie Pie — balloon -->
-      <div class="cutie">
-        <svg width="48" height="48" viewBox="0 0 48 48">
-          <ellipse cx="24" cy="19" rx="13" ry="15" fill="#FF9BD2" stroke="#ff6eb4" stroke-width="2"/>
-          <line x1="24" y1="34" x2="24" y2="46" stroke="#FF9BD2" stroke-width="2"/>
-          <path d="M24,46 Q20,44 22,42" fill="none" stroke="#FF9BD2" stroke-width="1.5"/>
-        </svg>
-        <span class="cutie-name">Pinkie</span>
-      </div>
-    </div>
-
-    <div class="msg">
-      🎂 Que este día esté lleno de magia,<br>
-      arcoíris y toda la amistad de Equestria 🎂<br><br>
-      💜 Eres tan especial como<br>
-      la Magia de la Amistad misma 💜<br><br>
-      🌟 ¡Que todos tus deseos se hagan realidad! 🌟
-    </div>
-
-    <div class="rainbow-bar"></div>
-
-    <div class="pony-row">
-      <span class="pony">🎉</span>
-      <span class="pony">🎊</span>
-      <span class="pony">🎂</span>
-      <span class="pony">🎊</span>
-      <span class="pony">🎉</span>
-    </div>
-
-    <button id="replay-btn" onclick="replayCelebration()">🎊 ¡Otra vez!</button>
+<!-- ══════════ PARADE ══════════ -->
+<section id="parade">
+  <h2 class="s-title">🎉 Tu equipo te celebra 🎉</h2>
+  <div style="overflow:hidden">
+    <div class="parade-track" id="parade-track"></div>
   </div>
-</div>
+</section>
+
+<!-- ══════════ POKEMON TEAM ══════════ -->
+<section id="pokemon" class="section">
+  <h2 class="s-title">⚡ Tu Equipo Pokémon ⚡</h2>
+  <div class="poke-grid">
+    <div class="poke-item" style="--pg:rgba(251,191,36,.35)">
+      <img src="public/pikaçu.gif" alt="Pikachu"
+           style="filter:drop-shadow(0 0 12px rgba(251,191,36,.7))">
+      <span style="--pc:#fde68a">Pikachu</span>
+    </div>
+    <div class="poke-item" style="--pg:rgba(251,146,60,.35)">
+      <img src="public/spin-charmander.gif" alt="Charmander"
+           style="filter:drop-shadow(0 0 12px rgba(251,146,60,.65))">
+      <span style="--pc:#fed7aa">Charmander</span>
+    </div>
+    <div class="poke-item" style="--pg:rgba(239,68,68,.35)">
+      <img src="public/arcanine.gif" alt="Arcanine"
+           style="filter:drop-shadow(0 0 12px rgba(239,68,68,.55))">
+      <span style="--pc:#fca5a5">Arcanine</span>
+    </div>
+    <div class="poke-item" style="--pg:rgba(139,92,246,.35)">
+      <img src="public/snorlax-snorlax-pokemon.gif" alt="Snorlax"
+           style="filter:drop-shadow(0 0 12px rgba(139,92,246,.5))">
+      <span style="--pc:#c4b5fd">Snorlax</span>
+    </div>
+    <div class="poke-item" style="--pg:rgba(251,191,36,.35)">
+      <img src="public/furret-cute.gif" alt="Furret"
+           style="filter:drop-shadow(0 0 12px rgba(251,191,36,.5))">
+      <span style="--pc:#fde68a">Furret</span>
+    </div>
+    <div class="poke-item" style="--pg:rgba(96,165,250,.35)">
+      <img src="public/baile-insano-squirtle.gif" alt="Squirtle"
+           style="filter:drop-shadow(0 0 12px rgba(96,165,250,.55))">
+      <span style="--pc:#bfdbfe">Squirtle</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ MLP CORNER ══════════ -->
+<section id="mlp-corner" class="section">
+  <h2 class="s-title" style="color:var(--pink);text-shadow:0 0 28px rgba(244,114,182,.4)">
+    🦄 Tus Ponies Favoritas 🦄
+  </h2>
+  <div class="mlp-grid">
+    <div class="mlp-item">
+      <img src="public/twilight.png" alt="Twilight Sparkle">
+      <span>Twilight Sparkle</span>
+    </div>
+    <div class="mlp-item">
+      <img src="public/rainbow dash.png" alt="Rainbow Dash">
+      <span>Rainbow Dash</span>
+    </div>
+    <div class="mlp-item">
+      <img src="public/pinkipie.png" alt="Pinkie Pie">
+      <span>Pinkie Pie</span>
+    </div>
+    <div class="mlp-item">
+      <img src="public/fluttershy.png" alt="Fluttershy">
+      <span>Fluttershy</span>
+    </div>
+    <div class="mlp-item">
+      <img src="public/rarity.png" alt="Rarity">
+      <span>Rarity</span>
+    </div>
+    <div class="mlp-item">
+      <img src="public/applejack.png" alt="Applejack">
+      <span>Applejack</span>
+    </div>
+    <div class="mlp-item">
+      <img src="public/derpy.png" alt="Derpy">
+      <span>Derpy 💜</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ MESSAGE ══════════ -->
+<section id="msg-section" class="section">
+  <h2 class="s-title">💚 Para Ti, Marce 💚</h2>
+  <div class="msg-card">
+    <div class="bears-row">
+      <img class="bear-gif" src="public/joke-bear-jokebear.gif"      style="--bd:.7s;--bdl:0s">
+      <img class="bear-gif" src="public/jokebear-nongdamgom.gif"     style="--bd:.85s;--bdl:.12s">
+      <img class="bear-gif" src="public/jokebearnote-joke-bear.gif"  style="--bd:.75s;--bdl:.25s">
+      <img class="bear-gif" src="public/jokerbear-joke-bear.gif"     style="--bd:.9s;--bdl:.38s">
+    </div>
+    <p class="msg-text">
+      Hoy es un día especial porque<br>
+      <strong>tú eres especial.</strong><br><br>
+      Que este año esté lleno de<br>
+      <span class="purple">arcoíris mágicos</span>, ponies bailando,<br>
+      y muchos <span class="pink">Pokémon shiny</span> en tu camino.<br><br>
+      💚 Que todo lo verde que amas<br>
+      florezca aún más este año. 💚<br><br>
+      <strong>¡Feliz cumpleaños Marce! 🎂🌿✨</strong>
+    </p>
+  </div>
+
+  <div class="extra-bears">
+    <img src="public/nongdamgom-bear.gif"             style="height:clamp(55px,14vw,78px)">
+    <img src="public/jokebear-농담곰.gif"              style="height:clamp(55px,14vw,78px)">
+    <img src="public/신나는농담곰-정신사나운농담곰.gif"  style="height:clamp(55px,14vw,78px)">
+    <img src="public/bbibenho.gif"                     style="height:clamp(55px,14vw,78px)">
+    <img src="public/bear-so-cute-funny-point-flower-so-cute.gif" style="height:clamp(55px,14vw,78px)">
+    <img src="public/joke-bear-jokebear (1).gif"      style="height:clamp(55px,14vw,78px)">
+    <img src="public/jokebear-농담곰 (1).gif"         style="height:clamp(55px,14vw,78px)">
+  </div>
+</section>
+
+<!-- ══════════ ZELDA BONUS ══════════ -->
+<section class="section" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.5rem;
+  background:radial-gradient(ellipse 60% 40% at 50% 50%,rgba(251,191,36,.06) 0%,transparent 65%)">
+  <h2 class="s-title" style="color:#fbbf24;text-shadow:0 0 25px rgba(251,191,36,.4)">
+    🗡️ Y también... 🗡️
+  </h2>
+  <div style="display:flex;justify-content:center;gap:clamp(1rem,5vw,2.5rem);flex-wrap:wrap;align-items:flex-end">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
+      <img src="public/link-legend-of-zelda.gif" style="height:clamp(70px,18vw,100px);filter:drop-shadow(0 0 14px rgba(74,222,128,.5))">
+      <span style="font-weight:900;font-size:clamp(.65rem,2vw,.82rem);color:#86efac">Link</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
+      <img src="public/zelda-legend-of-zelda.gif" style="height:clamp(70px,18vw,100px);filter:drop-shadow(0 0 14px rgba(251,191,36,.5))">
+      <span style="font-weight:900;font-size:clamp(.65rem,2vw,.82rem);color:#fde68a">Zelda</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
+      <img src="public/malons-rose-malon-rose.gif" style="height:clamp(70px,18vw,100px);filter:drop-shadow(0 0 14px rgba(244,114,182,.5))">
+      <span style="font-weight:900;font-size:clamp(.65rem,2vw,.82rem);color:#f9a8d4">Malon</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
+      <img src="public/party-dancing.gif" style="height:clamp(70px,18vw,100px);filter:drop-shadow(0 0 14px rgba(74,222,128,.4))">
+      <span style="font-weight:900;font-size:clamp(.65rem,2vw,.82rem);color:#86efac">¡Fiesta!</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
+      <img src="public/jolly-jolly-dance.gif" style="height:clamp(70px,18vw,100px);filter:drop-shadow(0 0 14px rgba(168,85,247,.4))">
+      <span style="font-weight:900;font-size:clamp(.65rem,2vw,.82rem);color:#c084fc">Jolly</span>
+    </div>
+  </div>
+</section>
+
+<footer>hecho con 💚 para Marce · 2025</footer>
 
 <script>
-  // ── Stars ──
-  const starsEl = document.getElementById('stars');
-  for (let i = 0; i < 160; i++) {
-    const s = document.createElement('div');
-    s.className = 'star';
-    const sz = Math.random() * 2.8 + .8;
-    s.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${(Math.random()*3+1).toFixed(2)}s;--dl:${(Math.random()*3).toFixed(2)}s`;
-    starsEl.appendChild(s);
+// ══ Parade ══
+const CHARS = [
+  ['public/pinkiepie-pinkie-pie-dancing.gif','Pinkie Pie'],
+  ['public/rainbow-dash.gif','Rainbow Dash'],
+  ['public/transparent-fluttershy-dancing.gif','Fluttershy'],
+  ['public/twilight-sparkle-crown-dacing with black glasses.gif','Twilight ✨'],
+  ['public/mlp-my-little-pony pinkie pie dancing 2.gif','Pinkie 2.0'],
+  ['public/mlp-fimapplejack dancing.gif','Applejack'],
+  ['public/my-little-pony-cartoonsdancing.gif','MLP 🎉'],
+  ['public/mlp-my-little-pony-pinkipie-dancing in a banana suit.gif','Banana Pie 🍌'],
+  ['public/derpy-mlp-dancing.gif','Derpy 💜'],
+  ['public/pikaçu.gif','Pikachu ⚡'],
+  ['public/furret-cute.gif','Furret 🍂'],
+  ['public/joke-bear-jokebear.gif','JokeBear'],
+  ['public/jolly-jolly-dance.gif','Jolly'],
+  ['public/party-dancing.gif','Fiesta!'],
+  ['public/zelda-legend-of-zelda.gif','Zelda 🗡️'],
+];
+const track = document.getElementById('parade-track');
+[...CHARS,...CHARS].forEach(([src,lbl]) => {
+  const d = document.createElement('div'); d.className = 'pchar';
+  d.innerHTML = `<img src="${src}" alt="${lbl}"><span>${lbl}</span>`;
+  track.appendChild(d);
+});
+
+// ══ Canvas particles ══
+const cvs = document.getElementById('bg-canvas');
+const ctx = cvs.getContext('2d');
+let W,H;
+function resize(){ W=cvs.width=innerWidth; H=cvs.height=innerHeight; }
+resize(); addEventListener('resize',resize);
+const COLS=['#4ade80','#86efac','#bbf7d0','#16a34a','#22c55e','#a855f7','#f472b6','#fbbf24'];
+const pts = Array.from({length:90},()=>({
+  x:Math.random()*2000, y:Math.random()*2000,
+  r:Math.random()*2+.4,
+  c:COLS[Math.random()*COLS.length|0],
+  vx:(Math.random()-.5)*.35,
+  vy:(Math.random()-.5)*.35,
+  a:Math.random()*.55+.15
+}));
+(function loop(){
+  ctx.clearRect(0,0,W,H);
+  pts.forEach(p=>{
+    p.x=(p.x+p.vx+W*2)%(W*2);
+    p.y=(p.y+p.vy+H*2)%(H*2);
+    const bx=p.x%W, by=p.y%H;
+    const pulse=Math.sin(Date.now()/900+p.x*.01)*.25+.75;
+    ctx.globalAlpha=p.a*pulse;
+    ctx.fillStyle=p.c;
+    ctx.beginPath(); ctx.arc(bx,by,p.r,0,Math.PI*2); ctx.fill();
+  });
+  ctx.globalAlpha=1;
+  requestAnimationFrame(loop);
+})();
+
+// ══ Card tilt ══
+const card=document.getElementById('poke-card');
+const scene=document.getElementById('card-scene');
+
+function applyTilt(nx,ny){
+  const rx=(ny-.5)*26, ry=(nx-.5)*-26;
+  const angle=Math.atan2(ny-.5,nx-.5)*(180/Math.PI);
+  card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.05,1.05,1.05)`;
+  card.style.setProperty('--mx',`${nx*100}%`);
+  card.style.setProperty('--my',`${ny*100}%`);
+  card.style.setProperty('--angle',angle.toFixed(1));
+}
+function resetTilt(){
+  card.style.transform='';
+  card.style.removeProperty('--mx');
+  card.style.removeProperty('--my');
+}
+
+scene.addEventListener('mousemove',e=>{
+  const r=card.getBoundingClientRect();
+  applyTilt((e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height);
+});
+scene.addEventListener('mouseleave',resetTilt);
+
+// mobile gyro
+addEventListener('deviceorientation',e=>{
+  if(e.beta==null) return;
+  const nx=Math.min(1,Math.max(0,(e.gamma+35)/70));
+  const ny=Math.min(1,Math.max(0,(e.beta -15)/60));
+  applyTilt(nx,ny);
+},{passive:true});
+
+// touch tap toggle on mobile
+let toggled=false;
+card.addEventListener('touchstart',()=>{
+  toggled=!toggled;
+  card.classList.toggle('active',toggled);
+  if(toggled) applyTilt(.5+Math.random()*.15-.075,.5+Math.random()*.15-.075);
+  else resetTilt();
+},{passive:true});
+
+// sparkles on hover
+const SPARK_COLS=['#4ade80','#bbf7d0','#f472b6','#a855f7','#fbbf24','#ffffff'];
+scene.addEventListener('mousemove',e=>{
+  if(Math.random()>.82){
+    const r=card.getBoundingClientRect();
+    const s=document.createElement('div'); s.className='cspark';
+    const sz=Math.random()*4+2;
+    s.style.cssText=`
+      left:${e.clientX-r.left}px;top:${e.clientY-r.top}px;
+      width:${sz}px;height:${sz}px;
+      background:${SPARK_COLS[Math.random()*SPARK_COLS.length|0]};
+      --tx:${(Math.random()-.5)*70}px;--ty:${-(Math.random()*55+15)}px;
+      --d:${(.7+Math.random()*.5).toFixed(2)}s;
+    `;
+    card.appendChild(s);
+    setTimeout(()=>s.remove(),1200);
   }
+});
 
-  // ── Background sparkles ──
-  const spBg = document.getElementById('sparkle-bg');
-  const spItems = ['✨','⭐','💫','🌟','💜','🦄','🌈'];
-  for (let i = 0; i < 18; i++) {
-    const d = document.createElement('div');
-    d.className = 'sp-bg';
-    d.textContent = spItems[i % spItems.length];
-    d.style.cssText = `font-size:${Math.random()*1.2+1}rem;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${(Math.random()*4+4).toFixed(2)}s;--dl:${(Math.random()*4).toFixed(2)}s`;
-    spBg.appendChild(d);
-  }
-
-  // ── Open envelope ──
-  function openEnvelope() {
-    const flap = document.getElementById('env-flap');
-    const envScene = document.getElementById('env-scene');
-    const cardScene = document.getElementById('card-scene');
-
-    flap.classList.add('open');
-
-    setTimeout(() => {
-      envScene.classList.add('gone');
-      cardScene.style.display = 'flex';
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        cardScene.classList.add('visible');
-        launchConfetti();
-        setTimeout(() => {
-          document.getElementById('replay-btn').style.display = 'inline-block';
-        }, 1200);
-      }));
-    }, 700);
-  }
-
-  // ── Confetti ──
-  function launchConfetti() {
-    const container = document.getElementById('confetti');
-    const colors = ['#ff6eb4','#c840b8','#7b2fbe','#FFD700','#65C8E5','#FF9BD2','#ff8c42','#ffffff','#a8ff78'];
-
-    for (let i = 0; i < 130; i++) {
-      setTimeout(() => {
-        const p = document.createElement('div');
-        p.className = 'cp';
-        const sz = Math.random() * 10 + 6;
-        const shapes = ['2px','50%','0'];
-        p.style.cssText = `
-          left:${Math.random()*100}%;
-          width:${sz}px; height:${sz * (Math.random()*.6+.7)}px;
-          background:${colors[Math.floor(Math.random()*colors.length)]};
-          border-radius:${shapes[Math.floor(Math.random()*shapes.length)]};
-          --drift:${(Math.random()-0.5)*220}px;
-          animation-duration:${(Math.random()*2+2).toFixed(2)}s;
-          animation-delay:${(Math.random()*.4).toFixed(2)}s;
-        `;
-        container.appendChild(p);
-        setTimeout(() => p.remove(), 4500);
-      }, i * 18);
-    }
-  }
-
-  // ── Replay ──
-  function replayCelebration() { launchConfetti(); }
+// ══ Confetti on load ══
+function confetti(){
+  const con=document.getElementById('confetti');
+  const C=['#4ade80','#86efac','#a855f7','#f472b6','#fbbf24','#60a5fa','#fff','#fb923c'];
+  for(let i=0;i<120;i++) setTimeout(()=>{
+    const p=document.createElement('div'); p.className='cp';
+    const sz=Math.random()*10+5;
+    p.style.cssText=`
+      left:${Math.random()*100}%;
+      width:${sz}px;height:${sz*(.5+Math.random()*.5)}px;
+      background:${C[Math.random()*C.length|0]};
+      border-radius:${Math.random()>.45?'50%':'3px'};
+      --drift:${(Math.random()-.5)*220}px;
+      animation-duration:${(2.2+Math.random()*2.5).toFixed(2)}s;
+      animation-delay:${(Math.random()*.6).toFixed(2)}s;
+    `;
+    con.appendChild(p);
+    setTimeout(()=>p.remove(),5000);
+  },i*22);
+}
+addEventListener('load',()=>setTimeout(confetti,500));
 </script>
 </body>
 </html>
