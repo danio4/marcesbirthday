@@ -318,7 +318,38 @@
     .extra-bears { display: flex; justify-content: center; gap: clamp(.35rem,2vw,.9rem); flex-wrap: wrap; }
 
 
-    footer { position: relative; z-index: 2; text-align: center; padding: 2rem 1rem; font-size: .72rem; color: rgba(255,255,255,.14); }
+    footer { display: none; }
+
+    /* ── Cursor sparkles ── */
+    .spark {
+      position: fixed; pointer-events: none; border-radius: 50%; z-index: 9998;
+      animation: sparkfade .65s ease-out forwards;
+    }
+    @keyframes sparkfade {
+      0%   { opacity:1; transform: translate(0,0) scale(1); }
+      100% { opacity:0; transform: translate(var(--dx),var(--dy)) scale(0); }
+    }
+    /* ── Firework particles ── */
+    .fw-p {
+      position: fixed; width:7px; height:7px; border-radius: 50%;
+      pointer-events: none; z-index: 9997;
+      animation: fwfly 1.3s ease-out forwards;
+    }
+    @keyframes fwfly {
+      0%   { opacity:1; transform: translate(0,0) scale(1.2); }
+      80%  { opacity:.7; }
+      100% { opacity:0; transform: translate(var(--dx),var(--dy)) scale(0); }
+    }
+    /* ── Firework trail streak ── */
+    .fw-trail {
+      position: fixed; width:3px; border-radius:3px;
+      pointer-events: none; z-index: 9996; transform-origin: bottom center;
+      animation: fwtrail .5s ease-in forwards;
+    }
+    @keyframes fwtrail {
+      0%   { opacity:.9; transform: scaleY(1); }
+      100% { opacity:0; transform: scaleY(0); }
+    }
   </style>
 </head>
 <body>
@@ -328,12 +359,12 @@
 <!-- ══ INTRO SPLASH ══ -->
 <div id="intro" onclick="startPage()">
   <div id="intro-inner">
-    <img id="pinkie-intro" src="public/pinkipie.png" alt="Pinkie Pie">
+    <img id="pinkie-intro" src="public/derpy.png" alt="Derpy">
     <div class="intro-hint">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="#f9a8d4">
         <path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z"/>
       </svg>
-      click en pinkie
+      click en derpy
     </div>
   </div>
 </div>
@@ -356,30 +387,40 @@
 
 <!-- ══ HERO ══ -->
 <section id="hero">
-  <!-- GIFs scattered inside hero -->
+  <!-- GIFs scattered ALL across hero — top row -->
   <img class="hero-gif" src="public/rainbow-dash.gif"
-       style="top:8%;left:4%;width:clamp(68px,14vw,110px);--hr:-7deg;--hd:3.4s;--hdl:0s">
+       style="top:4%;left:1%;width:clamp(80px,16vw,130px);--hr:-7deg;--hd:3.4s;--hdl:0s">
+  <img class="hero-gif" src="public/pikaçu.gif"
+       style="top:2%;left:18%;width:clamp(72px,14vw,115px);--hr:5deg;--hd:3.9s;--hdl:.2s">
   <img class="hero-gif" src="public/transparent-fluttershy-dancing.gif"
-       style="top:12%;right:5%;width:clamp(68px,14vw,108px);--hr:6deg;--hd:4s;--hdl:.3s">
-  <img class="hero-gif" src="public/spin-charmander.gif"
-       style="bottom:28%;left:5%;width:clamp(58px,12vw,90px);--hr:-5deg;--hd:3.8s;--hdl:.6s">
+       style="top:4%;right:18%;width:clamp(80px,16vw,128px);--hr:6deg;--hd:4s;--hdl:.3s">
   <img class="hero-gif" src="public/furret-cute.gif"
-       style="bottom:22%;right:6%;width:clamp(58px,12vw,88px);--hr:8deg;--hd:4.3s;--hdl:.2s">
-  <img class="hero-gif" src="public/derpy-mlp-dancing.gif"
-       style="top:40%;left:2%;width:clamp(65px,13vw,100px);--hr:-4deg;--hd:3.6s;--hdl:.9s">
-  <img class="hero-gif" src="public/jolly-jolly-dance.gif"
-       style="top:38%;right:3%;width:clamp(65px,13vw,100px);--hr:5deg;--hd:4.1s;--hdl:.4s">
+       style="top:3%;right:1%;width:clamp(72px,14vw,112px);--hr:-4deg;--hd:4.3s;--hdl:.1s">
+  <!-- middle row -->
   <img class="hero-gif" src="public/nongdamgom-bear.gif"
-       style="bottom:40%;left:1%;width:clamp(58px,12vw,85px);--hr:6deg;--hd:3.2s;--hdl:1s">
+       style="top:38%;left:1%;width:clamp(72px,14vw,110px);--hr:6deg;--hd:3.2s;--hdl:.9s">
+  <img class="hero-gif" src="public/jolly-jolly-dance.gif"
+       style="top:36%;left:19%;width:clamp(68px,13vw,105px);--hr:-5deg;--hd:4.1s;--hdl:.4s">
+  <img class="hero-gif" src="public/derpy-mlp-dancing.gif"
+       style="top:36%;right:19%;width:clamp(68px,13vw,105px);--hr:4deg;--hd:3.6s;--hdl:.6s">
   <img class="hero-gif" src="public/snorlax-snorlax-pokemon.gif"
-       style="bottom:35%;right:2%;width:clamp(65px,13vw,95px);--hr:-6deg;--hd:5s;--hdl:.7s">
+       style="top:38%;right:1%;width:clamp(78px,15vw,120px);--hr:-6deg;--hd:5s;--hdl:.7s">
+  <!-- bottom row -->
+  <img class="hero-gif" src="public/spin-charmander.gif"
+       style="bottom:12%;left:2%;width:clamp(72px,14vw,112px);--hr:-5deg;--hd:3.8s;--hdl:.5s">
+  <img class="hero-gif" src="public/mlp-fimapplejack dancing.gif"
+       style="bottom:10%;left:20%;width:clamp(80px,16vw,128px);--hr:7deg;--hd:4.4s;--hdl:.3s">
+  <img class="hero-gif" src="public/baile-insano-squirtle.gif"
+       style="bottom:10%;right:20%;width:clamp(78px,15vw,122px);--hr:-4deg;--hd:3.7s;--hdl:.8s">
+  <img class="hero-gif" src="public/mlp-my-little-pony-pinkipie-dancing in a banana suit.gif"
+       style="bottom:8%;right:2%;width:clamp(80px,16vw,128px);--hr:5deg;--hd:4.6s;--hdl:.2s">
 
   <div class="hero-content">
     <h1 class="hero-title">Feliz<br>Cumpleaños</h1>
     <p class="hero-name">Marce</p>
     <p class="hero-sub">ya es tu día, disfrútalo</p>
     <div class="hero-arrow">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="#4ade80"><path d="M7 10l5 5 5-5z"/></svg>
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="#4ade80" style="filter:drop-shadow(0 0 10px rgba(74,222,128,.7))"><path d="M7 10l5 5 5-5z"/></svg>
     </div>
   </div>
 </section>
@@ -614,7 +655,7 @@ function startPage() {
   const music  = document.getElementById('bg-music');
 
   // Swap static PNG → dancing GIF
-  pinkie.src = 'public/pinkiepie-pinkie-pie-dancing.gif';
+  pinkie.src = 'public/derpy-mlp-dancing.gif';
 
   // Start music
   music.volume = 0.55;
@@ -632,6 +673,8 @@ function startPage() {
     intro.classList.add('out');
     main.classList.add('visible');
     startConfetti();
+    // initial firework burst on entry
+    for (let i = 0; i < 5; i++) setTimeout(() => launchFirework && launchFirework(), i * 400);
     setTimeout(() => intro.style.display = 'none', 600);
   }, 700);
 }
@@ -747,6 +790,77 @@ scene.addEventListener('mousemove', e => {
     s.style.cssText = `left:${e.clientX-r.left}px;top:${e.clientY-r.top}px;width:${sz}px;height:${sz}px;background:${SC[Math.random()*SC.length|0]};--tx:${(Math.random()-.5)*65}px;--ty:${-(Math.random()*50+12)}px;--d:${(.6+Math.random()*.45).toFixed(2)}s`;
     card.appendChild(s); setTimeout(() => s.remove(), 1100);
   }
+});
+
+// ── Cursor / touch sparkle trail ──
+const SPARK_COLORS = ['#4ade80','#f472b6','#a855f7','#fbbf24','#60a5fa','#fb923c','#f9a8d4','#bbf7d0'];
+function spawnSparks(cx, cy) {
+  const n = 4;
+  for (let i = 0; i < n; i++) {
+    const s = document.createElement('div');
+    s.className = 'spark';
+    const sz = Math.random()*7+3;
+    const dx = (Math.random()-.5)*55;
+    const dy = -(Math.random()*55+10);
+    s.style.cssText = `left:${cx}px;top:${cy}px;width:${sz}px;height:${sz}px;background:${SPARK_COLORS[Math.random()*SPARK_COLORS.length|0]};--dx:${dx}px;--dy:${dy}px;animation-duration:${(.45+Math.random()*.35).toFixed(2)}s`;
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 700);
+  }
+}
+let lastSpark = 0;
+document.addEventListener('mousemove', e => {
+  const now = Date.now();
+  if (now - lastSpark < 40) return;
+  lastSpark = now;
+  spawnSparks(e.clientX, e.clientY);
+});
+document.addEventListener('touchmove', e => {
+  const t = e.touches[0];
+  spawnSparks(t.clientX, t.clientY);
+}, { passive: true });
+
+// ── Fireworks ──
+const FW_COLORS = ['#4ade80','#f472b6','#a855f7','#fbbf24','#60a5fa','#f87171','#fb923c','#bbf7d0','#ffffff'];
+function launchFirework() {
+  const x = 80 + Math.random() * (window.innerWidth  - 160);
+  const y = 60 + Math.random() * (window.innerHeight * 0.65);
+  // Trail streak going up before burst
+  const trail = document.createElement('div');
+  trail.className = 'fw-trail';
+  const trailH = 50 + Math.random()*60;
+  const col = FW_COLORS[Math.floor(Math.random()*FW_COLORS.length)];
+  trail.style.cssText = `left:${x}px;top:${y}px;height:${trailH}px;background:linear-gradient(to top,transparent,${col});animation-duration:.45s`;
+  document.body.appendChild(trail);
+  setTimeout(() => trail.remove(), 500);
+  // Burst particles
+  setTimeout(() => {
+    const count = 32 + Math.floor(Math.random()*20);
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('div');
+      p.className = 'fw-p';
+      const angle = (i / count) * Math.PI * 2;
+      const dist  = 55 + Math.random() * 100;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist;
+      const c = FW_COLORS[Math.floor(Math.random()*FW_COLORS.length)];
+      const dur = (.9 + Math.random()*.5).toFixed(2);
+      p.style.cssText = `left:${x}px;top:${y}px;background:${c};--dx:${dx}px;--dy:${dy}px;animation-duration:${dur}s`;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 1600);
+    }
+  }, 420);
+}
+// start fireworks after page loads
+setTimeout(() => {
+  launchFirework();
+  setInterval(launchFirework, 3500);
+}, 2000);
+// also fire one when the page is revealed
+const _origStart = startPage;
+// tap anywhere for extra firework
+document.addEventListener('click', e => {
+  if (e.target.closest('#intro')) return;
+  if (Math.random() > .45) launchFirework();
 });
 </script>
 </body>
