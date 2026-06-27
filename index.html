@@ -81,6 +81,7 @@
     .cc {
       position: fixed; pointer-events: none; z-index: 9980;
       animation: cc-float var(--d,4s) ease-in-out infinite var(--dl,0s);
+      will-change: transform;
     }
     @keyframes cc-float {
       0%,100% { transform: translateY(0) rotate(var(--r,-5deg)); }
@@ -133,6 +134,7 @@
       position: absolute; pointer-events: none;
       filter: drop-shadow(0 3px 10px rgba(74,222,128,.22));
       animation: hg-float var(--hd,3.5s) ease-in-out infinite var(--hdl,0s);
+      will-change: transform;
     }
     @keyframes hg-float {
       0%,100% { transform: rotate(var(--hr,0deg)) translateY(0); }
@@ -680,20 +682,28 @@ function startPage() {
 }
 
 // ── BG particles ──
+const isMobile = navigator.maxTouchPoints > 0;
 const cvs = document.getElementById('bg-canvas');
 const ctx  = cvs.getContext('2d');
 let W, H;
 const resize = () => { W = cvs.width = innerWidth; H = cvs.height = innerHeight; };
 resize(); addEventListener('resize', resize);
 const COLS = ['#4ade80','#86efac','#bbf7d0','#16a34a','#22c55e','#a855f7','#f472b6','#fbbf24'];
-const pts = Array.from({length:80}, () => ({
+const pts = Array.from({length: isMobile ? 35 : 80}, () => ({
   x:Math.random()*2e3, y:Math.random()*2e3,
   r:Math.random()*2+.4,
   c:COLS[Math.random()*COLS.length|0],
   vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3,
   a:Math.random()*.5+.14
 }));
-(function loop(){
+let canvasActive = true;
+document.addEventListener('visibilitychange', () => { canvasActive = !document.hidden; });
+let lastFrame = 0;
+const FRAME_MS = 1000 / 30; // 30fps cap
+(function loop(ts){
+  requestAnimationFrame(loop);
+  if (!canvasActive || ts - lastFrame < FRAME_MS) return;
+  lastFrame = ts;
   ctx.clearRect(0,0,W,H);
   pts.forEach(p => {
     p.x = (p.x+p.vx+W*2)%(W*2); p.y = (p.y+p.vy+H*2)%(H*2);
@@ -702,8 +712,7 @@ const pts = Array.from({length:80}, () => ({
     ctx.beginPath(); ctx.arc(p.x%W, p.y%H, p.r, 0, Math.PI*2); ctx.fill();
   });
   ctx.globalAlpha = 1;
-  requestAnimationFrame(loop);
-})();
+})(0);
 
 // ── Confetti — infinite ──
 const CONFETTI_COLS = ['#4ade80','#86efac','#a855f7','#f472b6','#fbbf24','#60a5fa','#fff','#fb923c'];
@@ -711,14 +720,14 @@ function launchBatch(n) {
   const con = document.getElementById('confetti');
   for (let i = 0; i < (n||55); i++) setTimeout(() => {
     const p = document.createElement('div'); p.className = 'cp';
-    const sz = Math.random()*10+5;
-    p.style.cssText = `left:${Math.random()*100}%;width:${sz}px;height:${sz*(.5+Math.random()*.5)}px;background:${CONFETTI_COLS[Math.random()*CONFETTI_COLS.length|0]};border-radius:${Math.random()>.45?'50%':'3px'};--drift:${(Math.random()-.5)*215}px;animation-duration:${(2.2+Math.random()*2.4).toFixed(2)}s;animation-delay:${(Math.random()*.5).toFixed(2)}s`;
-    con.appendChild(p); setTimeout(() => p.remove(), 5000);
-  }, i * 28);
+    const sz = Math.random()*16+8;
+    p.style.cssText = `left:${Math.random()*100}%;width:${sz}px;height:${sz*(.45+Math.random()*.55)}px;background:${CONFETTI_COLS[Math.random()*CONFETTI_COLS.length|0]};border-radius:${Math.random()>.45?'50%':'3px'};--drift:${(Math.random()-.5)*230}px;animation-duration:${(2.8+Math.random()*2.6).toFixed(2)}s;animation-delay:${(Math.random()*.4).toFixed(2)}s`;
+    con.appendChild(p); setTimeout(() => p.remove(), 6000);
+  }, i * 22);
 }
 function startConfetti() {
-  launchBatch(80); // initial burst
-  setInterval(() => launchBatch(40), 3800); // keeps falling forever
+  launchBatch(120); // bigger initial burst
+  setInterval(() => launchBatch(55), 3500); // keeps falling forever
 }
 
 // ── Parade ──
@@ -771,8 +780,12 @@ scene.addEventListener('mousemove', e => {
   applyTilt((e.clientX-r.left)/r.width, (e.clientY-r.top)/r.height);
 });
 scene.addEventListener('mouseleave', resetTilt);
+let lastOrient = 0;
 function handleOrientation(e) {
   if (e.beta == null) return;
+  const now = Date.now();
+  if (now - lastOrient < 33) return; // 30fps cap
+  lastOrient = now;
   applyTilt(Math.min(1,Math.max(0,(e.gamma+35)/70)), Math.min(1,Math.max(0,(e.beta-15)/60)));
 }
 function enableOrientation() {
@@ -814,32 +827,6 @@ scene.addEventListener('mousemove', e => {
   }
 });
 
-// ── Cursor / touch sparkle trail ──
-const SPARK_COLORS = ['#4ade80','#f472b6','#a855f7','#fbbf24','#60a5fa','#fb923c','#f9a8d4','#bbf7d0'];
-function spawnSparks(cx, cy) {
-  const n = 4;
-  for (let i = 0; i < n; i++) {
-    const s = document.createElement('div');
-    s.className = 'spark';
-    const sz = Math.random()*7+3;
-    const dx = (Math.random()-.5)*55;
-    const dy = -(Math.random()*55+10);
-    s.style.cssText = `left:${cx}px;top:${cy}px;width:${sz}px;height:${sz}px;background:${SPARK_COLORS[Math.random()*SPARK_COLORS.length|0]};--dx:${dx}px;--dy:${dy}px;animation-duration:${(.45+Math.random()*.35).toFixed(2)}s`;
-    document.body.appendChild(s);
-    setTimeout(() => s.remove(), 700);
-  }
-}
-let lastSpark = 0;
-document.addEventListener('mousemove', e => {
-  const now = Date.now();
-  if (now - lastSpark < 40) return;
-  lastSpark = now;
-  spawnSparks(e.clientX, e.clientY);
-});
-document.addEventListener('touchmove', e => {
-  const t = e.touches[0];
-  spawnSparks(t.clientX, t.clientY);
-}, { passive: true });
 
 // ── Fireworks ──
 const FW_COLORS = ['#4ade80','#f472b6','#a855f7','#fbbf24','#60a5fa','#f87171','#fb923c','#bbf7d0','#ffffff'];
@@ -856,7 +843,7 @@ function launchFirework() {
   setTimeout(() => trail.remove(), 500);
   // Burst particles
   setTimeout(() => {
-    const count = 32 + Math.floor(Math.random()*20);
+    const count = isMobile ? 14 : 32 + Math.floor(Math.random()*20);
     for (let i = 0; i < count; i++) {
       const p = document.createElement('div');
       p.className = 'fw-p';
@@ -875,15 +862,26 @@ function launchFirework() {
 // start fireworks after page loads
 setTimeout(() => {
   launchFirework();
-  setInterval(launchFirework, 3500);
+  setInterval(launchFirework, isMobile ? 7000 : 3500);
 }, 2000);
-// also fire one when the page is revealed
-const _origStart = startPage;
 // tap anywhere for extra firework
 document.addEventListener('click', e => {
   if (e.target.closest('#intro')) return;
   if (Math.random() > .45) launchFirework();
 });
+
+// ── Pause hero GIFs when scrolled out of view ──
+const heroGifs = document.querySelectorAll('.hero-gif');
+const gifObserver = new IntersectionObserver(entries => {
+  entries.forEach(({ target, isIntersecting }) => {
+    if (isIntersecting) {
+      if (target.dataset.src) { target.src = target.dataset.src; delete target.dataset.src; }
+    } else {
+      if (target.src && !target.dataset.src) { target.dataset.src = target.src; target.src = ''; }
+    }
+  });
+}, { threshold: 0 });
+heroGifs.forEach(g => gifObserver.observe(g));
 </script>
 </body>
 </html>
