@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <title>🌿 Feliz Cumpleaños Marce!</title>
+  <title>Feliz Cumpleaños Marce</title>
+  <link rel="icon" href="public/twilight.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --g0: #bbf7d0; --g1: #4ade80; --g2: #16a34a; --g3: #052e16;
-      --glow: rgba(74,222,128,.45);
-      --purple: #a855f7; --pink: #f472b6; --gold: #fbbf24;
+      --g1: #4ade80; --g2: #16a34a;
+      --glow: rgba(74,222,128,.42);
     }
 
     html { scroll-behavior: smooth; }
@@ -24,524 +24,297 @@
       overflow-x: hidden;
     }
 
-    /* ── canvas ── */
-    #bg-canvas {
-      position: fixed; inset: 0;
-      pointer-events: none; z-index: 0;
-    }
+    #bg-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
 
-    /* ── confetti ── */
+    /* confetti */
     #confetti { position: fixed; inset: 0; pointer-events: none; z-index: 500; overflow: hidden; }
-    .cp {
-      position: absolute; top: -14px;
-      animation: cp-fall linear forwards;
-    }
-    @keyframes cp-fall {
-      to { transform: translateY(110vh) rotate(810deg) translateX(var(--drift)); opacity: .15; }
-    }
+    .cp { position: absolute; top: -14px; animation: cp-fall linear forwards; }
+    @keyframes cp-fall { to { transform: translateY(110vh) rotate(800deg) translateX(var(--drift)); opacity: .1; } }
 
-    /* ── floating corner chars ── */
-    .corner-char {
+    /* corner floaters */
+    .cc {
       position: fixed; pointer-events: none; z-index: 1;
-      animation: cc-float var(--d,4s) ease-in-out infinite;
-      animation-delay: var(--dl,0s);
+      animation: cc-float var(--d,4s) ease-in-out infinite var(--dl,0s);
     }
     @keyframes cc-float {
-      0%,100% { transform: translateY(0) rotate(var(--r,−5deg)) scale(1); }
-      50%      { transform: translateY(-18px) rotate(calc(var(--r,-5deg) * -1)) scale(1.05); }
+      0%,100% { transform: translateY(0) rotate(var(--r,-5deg)); }
+      50%      { transform: translateY(-16px) rotate(calc(var(--r,-5deg)*-1)); }
     }
 
-    /* ════════════════════════════════
-       HERO
-    ════════════════════════════════ */
+    /* svg icon helper */
+    .icon { display: inline-block; vertical-align: middle; }
+
+    /* ════ HERO ════ */
     #hero {
       position: relative; z-index: 2;
       min-height: 100dvh;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      text-align: center; gap: 1.4rem;
+      text-align: center; gap: 1rem;
       padding: 2rem 1.2rem;
       background:
-        radial-gradient(ellipse 80% 60% at 50% 110%, rgba(74,222,128,.18) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 40% at 20% 10%,  rgba(168,85,247,.1)  0%, transparent 60%);
+        radial-gradient(ellipse 80% 50% at 50% 110%, rgba(74,222,128,.15) 0%, transparent 60%),
+        radial-gradient(ellipse 45% 30% at 18% 8%, rgba(168,85,247,.1) 0%, transparent 55%);
     }
-
-    .hero-eyebrow {
-      font-size: clamp(.75rem,2.8vw,.95rem);
-      font-weight: 900; letter-spacing: .25em; text-transform: uppercase;
-      color: var(--g1); opacity: .8;
-    }
-
     .hero-title {
       font-family: 'Fredoka One', cursive;
-      font-size: clamp(3.2rem,13vw,7.5rem);
-      line-height: .95;
+      font-size: clamp(3.5rem,14vw,8rem);
+      line-height: .9;
       background: linear-gradient(140deg,#bbf7d0,#4ade80,#16a34a,#86efac);
       background-size: 300%;
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      animation: title-shift 5s linear infinite;
-      filter: drop-shadow(0 0 28px var(--glow));
+      animation: ts 5s linear infinite;
+      filter: drop-shadow(0 0 26px var(--glow));
     }
-    @keyframes title-shift { to { background-position: 300%; } }
-
+    @keyframes ts { to { background-position: 300%; } }
     .hero-name {
       font-family: 'Fredoka One', cursive;
-      font-size: clamp(3rem,14vw,6.5rem);
+      font-size: clamp(3.5rem,16vw,7.5rem);
       background: linear-gradient(140deg,#f472b6,#a855f7,#4ade80,#f472b6);
       background-size: 300%;
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      animation: name-shift 4s linear infinite;
-      filter: drop-shadow(0 0 25px rgba(244,114,182,.5));
+      animation: ns 4s linear infinite;
     }
-    @keyframes name-shift { to { background-position: 300%; } }
-
+    @keyframes ns { to { background-position: 300%; } }
     .hero-sub {
-      font-size: clamp(.9rem,3vw,1.1rem);
-      font-weight: 700; color: #d1fae5; opacity: .7;
-      max-width: 340px;
+      font-size: clamp(.82rem,2.8vw,.98rem); font-weight: 700;
+      color: #86efac; opacity: .6;
     }
+    .hero-arrow { font-size: 1.8rem; animation: ab 1.6s ease-in-out infinite; }
+    @keyframes ab { 0%,100%{transform:translateY(0)} 50%{transform:translateY(9px)} }
 
-    .scroll-arrow {
-      margin-top: .5rem; font-size: 2rem;
-      animation: arr-bounce 1.6s ease-in-out infinite;
-    }
-    @keyframes arr-bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
-
-    /* ════════════════════════════════
-       SECTION BASE
-    ════════════════════════════════ */
-    .section {
-      position: relative; z-index: 2;
-      padding: clamp(3rem,8vw,5rem) clamp(1rem,5vw,2.5rem);
-    }
+    /* ════ SECTION BASE ════ */
+    .section { position: relative; z-index: 2; padding: clamp(2rem,6vw,4rem) clamp(.8rem,4vw,2rem); }
 
     .s-title {
       font-family: 'Fredoka One', cursive;
-      font-size: clamp(1.6rem,5.5vw,2.8rem);
-      text-align: center;
-      color: var(--g1);
-      text-shadow: 0 0 28px var(--glow);
-      margin-bottom: clamp(1.5rem,5vw,2.5rem);
+      font-size: clamp(1.4rem,4.5vw,2.4rem);
+      text-align: center; color: var(--g1);
+      text-shadow: 0 0 24px var(--glow);
+      margin-bottom: clamp(1rem,4vw,1.8rem);
+      display: flex; align-items: center; justify-content: center; gap: .4rem;
     }
 
-    /* ════════════════════════════════
-       LEGENDARY CARD
-    ════════════════════════════════ */
+    /* ════ CARD ════ */
     #card-section {
       display: flex; flex-direction: column; align-items: center;
-      background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(74,222,128,.06) 0%, transparent 70%);
+      background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(74,222,128,.05) 0%, transparent 65%);
     }
-
     .card-scene {
-      width: min(340px, 88vw);
+      width: min(318px, 86vw);
       aspect-ratio: 63/88;
       perspective: 900px;
       cursor: grab;
       -webkit-tap-highlight-color: transparent;
     }
-
     .poke-card {
-      width: 100%; height: 100%;
-      position: relative;
+      width: 100%; height: 100%; position: relative;
       border-radius: 4.5%/3.2%;
       transform-style: preserve-3d;
       will-change: transform;
-      transition: transform .12s ease-out, box-shadow .12s ease-out;
-
+      transition: transform .1s ease-out;
       background:
-        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(74,222,128,.22) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(168,85,247,.12) 0%, transparent 60%),
-        linear-gradient(160deg,#0b2e17,#143d20,#0d2a18,#1a4d28,#0b2e17);
-
+        radial-gradient(ellipse 80% 35% at 50% 0%, rgba(74,222,128,.2) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 35% at 85% 85%, rgba(168,85,247,.1) 0%, transparent 55%),
+        linear-gradient(155deg,#0b2e17,#143d20,#0d2a18,#1a4d28,#0b2e17);
       box-shadow:
         0 0 0 2.5px #4ade80,
-        0 0 0 5px rgba(74,222,128,.3),
-        0 30px 70px rgba(0,0,0,.75),
-        0 0 90px rgba(74,222,128,.2);
+        0 0 0 5px rgba(74,222,128,.22),
+        0 28px 60px rgba(0,0,0,.8),
+        0 0 75px rgba(74,222,128,.16);
+      overflow: hidden;
     }
-
-    /* foil shimmer */
     .card-foil {
-      position: absolute; inset: 0; border-radius: inherit;
-      background:
-        radial-gradient(circle at var(--mx,50%) var(--my,50%),
-          rgba(255,255,255,.18) 0%,
-          rgba(74,222,128,.14) 18%,
-          rgba(168,85,247,.12) 36%,
-          rgba(244,114,182,.10) 54%,
-          rgba(96,165,250,.08) 72%,
-          transparent 80%
-        );
-      mix-blend-mode: screen;
-      pointer-events: none; z-index: 10;
+      position: absolute; inset: 0; border-radius: inherit; z-index: 10;
+      background: radial-gradient(circle at var(--mx,50%) var(--my,50%),
+        rgba(255,255,255,.15) 0%, rgba(74,222,128,.12) 18%,
+        rgba(168,85,247,.1) 36%, rgba(244,114,182,.08) 52%, transparent 75%);
+      mix-blend-mode: screen; pointer-events: none;
       opacity: 0; transition: opacity .3s;
     }
-    /* rainbow lines */
     .card-lines {
-      position: absolute; inset: 0; border-radius: inherit;
+      position: absolute; inset: 0; border-radius: inherit; z-index: 9;
       background: repeating-linear-gradient(
-        calc(var(--angle,30) * 1deg),
-        transparent 0%,
-        rgba(255,255,255,.025) 2%,
-        transparent 4%
-      );
-      mix-blend-mode: screen;
-      pointer-events: none; z-index: 9;
+        calc(var(--angle,30)*1deg), transparent 0%, rgba(255,255,255,.02) 2%, transparent 4%);
+      mix-blend-mode: screen; pointer-events: none;
       opacity: 0; transition: opacity .3s;
     }
-    .poke-card:hover .card-foil,
-    .poke-card:hover .card-lines,
-    .poke-card.active .card-foil,
-    .poke-card.active .card-lines { opacity: 1; }
+    .poke-card:hover .card-foil, .poke-card:hover .card-lines,
+    .poke-card.active .card-foil, .poke-card.active .card-lines { opacity: 1; }
 
-    /* card content */
     .card-inner {
-      position: absolute; inset: 0; border-radius: inherit;
-      padding: 3.8% 3.8%;
-      display: flex; flex-direction: column; gap: 1.8%;
+      position: absolute; inset: 0;
+      padding: 3.2% 3.5% 2.8%;
+      display: flex; flex-direction: column; gap: 1.3%;
       z-index: 5;
     }
-
     .card-header {
-      display: flex; align-items: center; gap: 4px;
-      justify-content: space-between;
+      display: flex; align-items: center; gap: 3px; justify-content: space-between; flex-shrink: 0;
     }
     .card-badge {
       font-family: 'Nunito', sans-serif;
-      font-size: clamp(.42rem,1.4vw,.58rem);
-      font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
-      color: #fbbf24;
-      border: 1px solid rgba(251,191,36,.45);
-      padding: 1px 5px; border-radius: 4px;
-      background: rgba(0,0,0,.35);
-      flex-shrink: 0;
+      font-size: clamp(.36rem,1.1vw,.5rem); font-weight: 900; letter-spacing: .07em;
+      text-transform: uppercase; color: #fbbf24;
+      border: 1px solid rgba(251,191,36,.38); padding: 1px 4px; border-radius: 3px;
+      background: rgba(0,0,0,.38); flex-shrink: 0; white-space: nowrap;
     }
     .card-name {
       font-family: 'Fredoka One', cursive;
-      font-size: clamp(.85rem,3.2vw,1.4rem);
+      font-size: clamp(.78rem,2.6vw,1.18rem);
       background: linear-gradient(130deg,#bbf7d0,#4ade80,#86efac);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      filter: drop-shadow(0 0 6px rgba(74,222,128,.7));
-      flex: 1; text-align: center;
+      filter: drop-shadow(0 0 5px rgba(74,222,128,.65));
+      flex: 1; text-align: center; padding: 0 3px;
     }
     .card-hp {
       font-family: 'Fredoka One', cursive;
-      font-size: clamp(.5rem,1.8vw,.78rem);
-      color: #bbf7d0; white-space: nowrap; flex-shrink: 0;
+      font-size: clamp(.42rem,1.4vw,.66rem); color: #bbf7d0;
+      white-space: nowrap; flex-shrink: 0;
     }
-    .card-hp b { font-size: 1.45em; color: #4ade80; text-shadow: 0 0 8px var(--glow); }
-
-    .card-type-row {
-      display: flex; align-items: center; gap: 3px;
-    }
+    .card-hp b { font-size: 1.4em; color: #4ade80; }
     .ti {
-      width: clamp(10px,3vw,15px); height: clamp(10px,3vw,15px);
+      width: clamp(8px,2.5vw,12px); height: clamp(8px,2.5vw,12px);
       border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
-      font-size: .6em; font-weight: 900; flex-shrink: 0;
+      font-size: .5em; flex-shrink: 0;
     }
-    .ti-grass { background: radial-gradient(#4ade80,#16a34a); }
-    .ti-star  { background: radial-gradient(#fbbf24,#d97706); }
-    .type-label {
-      font-family: 'Nunito', sans-serif;
-      font-size: clamp(.4rem,1.3vw,.55rem); font-weight: 900;
-      color: #86efac;
-    }
-
+    .ti-g { background: radial-gradient(#4ade80,#16a34a); }
+    .ti-s { background: radial-gradient(#fbbf24,#d97706); }
+    .card-type-row { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
+    .type-lbl { font-family: 'Nunito', sans-serif; font-size: clamp(.33rem,1vw,.48rem); font-weight: 900; color: #86efac; }
     .card-art {
-      position: relative; border-radius: 3%;
-      overflow: hidden;
-      border: 2px solid rgba(74,222,128,.5);
-      box-shadow: 0 0 20px rgba(74,222,128,.3), inset 0 0 20px rgba(74,222,128,.06);
-      flex: 0 0 46%;
+      flex: 0 0 43%;
+      border-radius: 3%; overflow: hidden;
+      border: 2px solid rgba(74,222,128,.42);
+      box-shadow: 0 0 16px rgba(74,222,128,.25);
+      position: relative;
     }
-    .card-art img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center top;
-      display: block;
-    }
+    .card-art img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
     .card-art::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg,transparent 30%,rgba(74,222,128,.07) 50%,transparent 70%);
-      background-size: 200% 200%;
-      animation: art-glint 4s ease-in-out infinite;
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg,transparent 30%,rgba(74,222,128,.06) 50%,transparent 70%);
+      background-size: 200% 200%; animation: ag 4s ease-in-out infinite;
     }
-    @keyframes art-glint {
-      0%,100% { background-position: 0% 0%; }
-      50%      { background-position: 100% 100%; }
-    }
-
+    @keyframes ag { 0%,100%{background-position:0 0} 50%{background-position:100% 100%} }
     .card-ability {
-      background: rgba(0,0,0,.38);
-      border: 1px solid rgba(74,222,128,.22);
-      border-radius: 3px;
-      padding: clamp(2px,1.2vw,5px) clamp(3px,1.5vw,6px);
+      background: rgba(0,0,0,.38); border: 1px solid rgba(74,222,128,.18); border-radius: 3px;
+      padding: clamp(2px,.9vw,4px) clamp(2px,1.1vw,5px); flex-shrink: 0;
     }
-    .ab-row {
-      display: flex; align-items: center; justify-content: space-between; gap: 3px;
-    }
-    .ab-icons { display: flex; gap: 2px; align-items: center; }
-    .ab-name {
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(.6rem,2vw,.88rem); color: #d1fae5;
-      flex: 1; padding-left: 3px;
-    }
-    .ab-dmg {
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(.65rem,2.2vw,.92rem);
-      color: #4ade80; text-shadow: 0 0 8px var(--glow);
-    }
-    .ab-desc {
-      font-family: 'Nunito', sans-serif;
-      font-size: clamp(.4rem,1.3vw,.55rem); font-weight: 700;
-      color: #d1fae5; opacity: .75; margin-top: 2px; line-height: 1.3;
-    }
-
-    .card-divider {
-      border: none; border-top: 1px solid rgba(74,222,128,.18); margin: 0;
-    }
-
-    .card-stats {
-      display: flex; justify-content: space-between;
-      font-family: 'Nunito', sans-serif;
-      font-size: clamp(.38rem,1.2vw,.52rem); font-weight: 700;
-      color: #d1fae5; opacity: .85;
-    }
-    .stat-lbl { opacity: .6; }
-
+    .ab-row { display: flex; align-items: center; justify-content: space-between; gap: 2px; }
+    .ab-icons { display: flex; gap: 2px; align-items: center; flex-shrink: 0; }
+    .ab-name { font-family: 'Fredoka One', cursive; font-size: clamp(.52rem,1.7vw,.78rem); color: #d1fae5; flex: 1; padding-left: 2px; }
+    .ab-dmg { font-family: 'Fredoka One', cursive; font-size: clamp(.54rem,1.8vw,.8rem); color: #4ade80; flex-shrink: 0; }
+    .ab-desc { font-family: 'Nunito', sans-serif; font-size: clamp(.32rem,1vw,.48rem); font-weight: 700; color: #d1fae5; opacity: .7; margin-top: 1px; line-height: 1.22; }
+    .card-divider { border: none; border-top: 1px solid rgba(74,222,128,.15); flex-shrink: 0; }
+    .card-stats { display: flex; justify-content: space-between; flex-shrink: 0; font-family: 'Nunito', sans-serif; font-size: clamp(.3rem,.95vw,.44rem); font-weight: 700; color: #d1fae5; opacity: .78; }
+    .sl { opacity: .5; }
     .card-rule {
-      background: linear-gradient(135deg,rgba(74,222,128,.12),rgba(168,85,247,.08));
-      border: 1px solid rgba(74,222,128,.3); border-radius: 3px;
-      padding: clamp(2px,1.2vw,5px) clamp(3px,1.5vw,6px);
+      background: linear-gradient(135deg,rgba(74,222,128,.09),rgba(168,85,247,.07));
+      border: 1px solid rgba(74,222,128,.25); border-radius: 3px;
+      padding: clamp(2px,.9vw,4px) clamp(2px,1.1vw,5px); flex-shrink: 0;
     }
-    .rule-header {
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(.5rem,1.6vw,.68rem); color: #4ade80;
-      display: block; margin-bottom: 2px;
-    }
-    .rule-body {
-      font-family: 'Nunito', sans-serif;
-      font-size: clamp(.38rem,1.2vw,.52rem); font-weight: 700;
-      color: #d1fae5; opacity: .8; line-height: 1.35;
-    }
+    .rh { font-family: 'Fredoka One', cursive; font-size: clamp(.42rem,1.3vw,.58rem); color: #4ade80; display: block; margin-bottom: 1px; }
+    .rb { font-family: 'Nunito', sans-serif; font-size: clamp(.3rem,.95vw,.44rem); font-weight: 700; color: #d1fae5; opacity: .72; line-height: 1.28; }
+    .cspark { position: absolute; border-radius: 50%; pointer-events: none; z-index: 20; animation: csf var(--d,.9s) ease-out forwards; }
+    @keyframes csf { 0%{transform:translate(0,0)scale(0);opacity:1} 100%{transform:translate(var(--tx,20px),var(--ty,-40px))scale(0);opacity:0} }
+    .card-hint { font-size: clamp(.68rem,2vw,.8rem); font-weight: 700; color: #86efac; opacity: .4; text-align: center; margin-top: .5rem; }
 
-    /* sparkle on hover */
-    .cspark {
-      position: absolute; border-radius: 50%; pointer-events: none; z-index: 20;
-      animation: cspark-fly var(--d,.9s) ease-out forwards;
+    /* ════ CHAOS BOARD ════ */
+    #chaos-section {
+      background:
+        radial-gradient(ellipse 70% 50% at 20% 50%, rgba(74,222,128,.07) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 80% 30%, rgba(168,85,247,.05) 0%, transparent 50%);
     }
-    @keyframes cspark-fly {
-      0%   { transform: translate(0,0) scale(0); opacity: 1; }
-      100% { transform: translate(var(--tx,20px),var(--ty,-40px)) scale(0); opacity: 0; }
+    .chaos-board {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(.15rem,.8vw,.5rem);
+      padding: .5rem;
     }
-
-    .card-hint {
-      font-size: clamp(.72rem,2.2vw,.85rem); font-weight: 700;
-      color: #86efac; opacity: .55; text-align: center; margin-top: .5rem;
-    }
-
-    /* ════════════════════════════════
-       GALLERY
-    ════════════════════════════════ */
-    #gallery {
-      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(168,85,247,.07) 0%, transparent 65%);
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: clamp(.7rem,2.5vw,1.2rem);
-      max-width: 860px; margin-inline: auto;
-    }
-    @media (max-width: 480px) {
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-      .gallery-grid .gi:first-child { grid-column: span 2; }
-    }
-
-    .gi {
-      position: relative; border-radius: 14px; overflow: hidden;
-      aspect-ratio: 3/4;
-      border: 2px solid rgba(74,222,128,.28);
-      box-shadow: 0 8px 28px rgba(0,0,0,.55), 0 0 24px rgba(74,222,128,.08);
-      transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
-    }
-    .gi:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 20px 50px rgba(0,0,0,.65), 0 0 45px rgba(74,222,128,.22);
-    }
-    .gi img {
-      width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;
-    }
-    .gi::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.45) 0%, transparent 55%);
-    }
-    .gi-label {
-      position: absolute; bottom: .6rem; left: 0; right: 0;
-      text-align: center; z-index: 1;
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(.75rem,2.5vw,1rem); color: #bbf7d0;
-      text-shadow: 0 1px 6px rgba(0,0,0,.8);
-    }
-
-    /* ════════════════════════════════
-       PARADE
-    ════════════════════════════════ */
-    #parade {
-      overflow: hidden;
-      padding-block: clamp(2rem,5vw,3.5rem);
-      background: linear-gradient(180deg,transparent,rgba(74,222,128,.035),transparent);
-    }
-
-    .parade-track {
-      display: flex; gap: clamp(1.2rem,4vw,2.2rem);
-      animation: p-scroll 30s linear infinite;
-      width: max-content;
-    }
-    @keyframes p-scroll { to { transform: translateX(-50%); } }
-
-    .pchar {
-      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+    .cb {
       flex-shrink: 0;
+      position: relative;
+      transform: rotate(var(--r,0deg)) translateY(var(--ty,0px));
+      transition: transform .22s cubic-bezier(.34,1.56,.64,1), z-index 0s;
     }
-    .pchar img {
-      height: clamp(65px,17vw,105px); width: auto;
-      filter: drop-shadow(0 4px 10px rgba(74,222,128,.28));
-    }
-    .pchar span {
-      font-size: clamp(.58rem,1.8vw,.75rem); font-weight: 900;
-      color: #86efac; text-align: center;
-    }
+    .cb:hover { transform: rotate(0deg) translateY(-10px) scale(1.1) !important; z-index: 10; }
 
-    /* ════════════════════════════════
-       POKEMON TEAM
-    ════════════════════════════════ */
-    #pokemon {
-      background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(251,191,36,.05) 0%, transparent 65%);
-      display: flex; flex-direction: column; align-items: center;
+    /* photo frame inside chaos */
+    .ph-frame {
+      position: relative;
+      border-radius: 7px; overflow: visible;
+      border: 3px solid rgba(74,222,128,.38);
+      box-shadow: 0 8px 24px rgba(0,0,0,.65), 0 0 18px rgba(74,222,128,.1);
     }
-
-    .poke-grid {
-      display: flex; justify-content: center;
-      gap: clamp(.8rem,3vw,1.8rem); flex-wrap: wrap;
-      max-width: 700px;
+    .ph-frame > .ph-img {
+      display: block; border-radius: 5px;
+      aspect-ratio: 3/4; object-fit: cover; object-position: center 18%;
     }
-    .poke-item {
-      display: flex; flex-direction: column; align-items: center; gap: .5rem;
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 16px;
-      padding: clamp(.8rem,3vw,1.2rem) clamp(.6rem,2.5vw,1rem);
-      transition: transform .25s, box-shadow .25s;
-      min-width: clamp(70px,18vw,100px);
-    }
-    .poke-item:hover {
-      transform: translateY(-6px) scale(1.05);
-      box-shadow: 0 12px 35px rgba(0,0,0,.5), 0 0 20px var(--pg,rgba(74,222,128,.3));
-    }
-    .poke-item img { height: clamp(55px,14vw,80px); width: auto; }
-    .poke-item span {
-      font-size: clamp(.65rem,2vw,.8rem); font-weight: 900;
-      color: var(--pc, #86efac); text-align: center;
-    }
-
-    /* ════════════════════════════════
-       MESSAGE
-    ════════════════════════════════ */
-    #msg-section {
-      display: flex; flex-direction: column; align-items: center; gap: 2rem;
-      text-align: center;
-      background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(168,85,247,.1) 0%, transparent 65%);
-    }
-
-    .msg-card {
-      position: relative; overflow: hidden;
-      background: rgba(255,255,255,.035);
-      border: 2px solid rgba(74,222,128,.22);
-      border-radius: 24px;
-      padding: clamp(1.5rem,5vw,2.8rem);
-      max-width: 580px; width: 100%;
-    }
-    .msg-card::before {
-      content: '';
-      position: absolute; inset: -60%;
-      background: conic-gradient(from 0deg, transparent, rgba(74,222,128,.04), transparent);
-      animation: mc-spin 14s linear infinite;
+    /* pony sticker on photo */
+    .ph-sticker {
+      position: absolute; z-index: 3;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,.55));
       pointer-events: none;
     }
-    @keyframes mc-spin { to { transform: rotate(360deg); } }
 
-    .bears-row {
-      display: flex; justify-content: center;
-      gap: clamp(.6rem,3vw,1.2rem); flex-wrap: wrap;
-      margin-bottom: 1.5rem;
-    }
-    .bear-gif {
-      height: clamp(55px,16vw,85px);
-      filter: drop-shadow(0 4px 12px rgba(74,222,128,.25));
-      animation: b-dance var(--bd,.8s) ease-in-out infinite alternate;
-      animation-delay: var(--bdl,0s);
-    }
-    @keyframes b-dance {
-      0%   { transform: rotate(-9deg) scale(1); }
-      100% { transform: rotate(9deg) scale(1.07); }
-    }
+    /* plain GIF in chaos */
+    .cb img { display: block; }
 
-    .msg-text {
-      font-size: clamp(.92rem,2.8vw,1.12rem);
-      font-weight: 700; color: #d1fae5; line-height: 1.85;
-      position: relative; z-index: 1;
+    /* ════ SCROLLING PARADE ════ */
+    #parade { overflow: hidden; padding-block: clamp(1.5rem,4vw,2.5rem); }
+    .parade-track {
+      display: flex; gap: clamp(1rem,3vw,1.8rem);
+      animation: pscroll 28s linear infinite;
+      width: max-content;
     }
-    .msg-text strong {
-      font-family: 'Fredoka One', cursive;
-      font-size: 1.25em; color: #4ade80;
-      text-shadow: 0 0 14px var(--glow);
-    }
-    .msg-text .purple { color: #c084fc; }
-    .msg-text .pink   { color: #f9a8d4; }
+    @keyframes pscroll { to { transform: translateX(-50%); } }
+    .pch { display: flex; flex-direction: column; align-items: center; gap: .3rem; flex-shrink: 0; }
+    .pch img { height: clamp(62px,16vw,95px); width: auto; filter: drop-shadow(0 3px 8px rgba(74,222,128,.22)); }
 
-    .extra-bears {
-      display: flex; justify-content: center;
-      gap: clamp(.6rem,3vw,1.2rem); flex-wrap: wrap;
+    /* ════ MESSAGE ════ */
+    #msg-section {
+      display: flex; flex-direction: column; align-items: center; gap: 1.6rem; text-align: center;
+      background: radial-gradient(ellipse 55% 45% at 50% 100%, rgba(168,85,247,.07) 0%, transparent 60%);
     }
-
-    /* ════════════════════════════════
-       MLP CORNER (bonus section)
-    ════════════════════════════════ */
-    #mlp-corner {
-      display: flex; flex-direction: column; align-items: center; gap: 2rem;
-      background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(244,114,182,.06) 0%, transparent 65%);
-    }
-
-    .mlp-grid {
-      display: flex; gap: clamp(.8rem,3vw,1.8rem); flex-wrap: wrap; justify-content: center;
-    }
-    .mlp-item {
-      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+    .msg-card {
+      position: relative; overflow: hidden;
       background: rgba(255,255,255,.03);
-      border: 1px solid rgba(244,114,182,.15);
-      border-radius: 16px;
-      padding: clamp(.7rem,2.5vw,1.1rem);
-      transition: transform .25s, box-shadow .25s;
+      border: 2px solid rgba(74,222,128,.18);
+      border-radius: 20px;
+      padding: clamp(1.2rem,4.5vw,2.4rem);
+      max-width: 520px; width: 100%;
     }
-    .mlp-item:hover {
-      transform: translateY(-6px) scale(1.05);
-      box-shadow: 0 12px 35px rgba(0,0,0,.5), 0 0 22px rgba(244,114,182,.25);
+    .msg-card::before {
+      content: ''; position: absolute; inset: -60%;
+      background: conic-gradient(from 0deg,transparent,rgba(74,222,128,.03),transparent);
+      animation: mcs 14s linear infinite; pointer-events: none;
     }
-    .mlp-item img { height: clamp(60px,16vw,88px); width: auto; }
-    .mlp-item span {
-      font-size: clamp(.62rem,1.9vw,.78rem); font-weight: 900; color: #f9a8d4;
+    @keyframes mcs { to { transform: rotate(360deg); } }
+    .bears-row { display: flex; justify-content: center; gap: clamp(.35rem,2vw,.9rem); flex-wrap: wrap; margin-bottom: 1rem; }
+    .bear-gif {
+      height: clamp(50px,13vw,76px);
+      filter: drop-shadow(0 3px 9px rgba(74,222,128,.2));
+      animation: bd var(--bd,.8s) ease-in-out infinite alternate var(--bdl,0s);
     }
+    @keyframes bd { 0%{transform:rotate(-9deg)scale(1)} 100%{transform:rotate(9deg)scale(1.07)} }
+    .msg-text { font-size: clamp(.88rem,2.7vw,1.05rem); font-weight: 700; color: #d1fae5; line-height: 1.85; position: relative; z-index: 1; }
+    .msg-text strong { font-family: 'Fredoka One', cursive; font-size: 1.2em; color: #4ade80; }
+    .msg-text .pk { color: #f9a8d4; }
+    .extra-bears { display: flex; justify-content: center; gap: clamp(.35rem,2vw,.9rem); flex-wrap: wrap; }
 
-    /* ════════════════════════════════
-       FOOTER
-    ════════════════════════════════ */
-    footer {
-      position: relative; z-index: 2;
-      text-align: center; padding: 2rem 1rem;
-      font-size: .78rem; color: rgba(255,255,255,.18);
+    /* ════ ZELDA ════ */
+    #zelda-section {
+      display: flex; flex-direction: column; align-items: center; gap: 1.4rem;
+      background: radial-gradient(ellipse 50% 35% at 50% 50%, rgba(251,191,36,.045) 0%, transparent 60%);
     }
+    .zl-row { display: flex; justify-content: center; align-items: flex-end; gap: clamp(.7rem,3.5vw,1.8rem); flex-wrap: wrap; }
+    .zl { display: flex; flex-direction: column; align-items: center; gap: .35rem; flex-shrink: 0; transition: transform .2s; }
+    .zl:hover { transform: translateY(-8px) scale(1.1); }
+    .zl img { display: block; width: auto; }
+    .zl span { font-size: clamp(.6rem,1.9vw,.76rem); font-weight: 900; }
+
+    footer { position: relative; z-index: 2; text-align: center; padding: 2rem 1rem; font-size: .72rem; color: rgba(255,255,255,.14); }
   </style>
 </head>
 <body>
@@ -549,396 +322,402 @@
 <canvas id="bg-canvas"></canvas>
 <div id="confetti"></div>
 
-<!-- Corner floaters -->
-<img class="corner-char" src="public/pinkiepie-pinkie-pie-dancing.gif"
-     style="bottom:3%;left:0;width:clamp(48px,11vw,80px);--d:3.8s;--r:-8deg;--dl:.1s">
-<img class="corner-char" src="public/rainbow-dash.gif"
-     style="bottom:3%;right:0;width:clamp(48px,11vw,80px);--d:4.2s;--r:7deg;--dl:.5s">
-<img class="corner-char" src="public/pikaçu.gif"
-     style="top:5%;right:1%;width:clamp(42px,9vw,70px);--d:3.2s;--r:10deg;--dl:.8s">
-<img class="corner-char" src="public/furret-cute.gif"
-     style="top:7%;left:1%;width:clamp(40px,9vw,65px);--d:4.6s;--r:-6deg;--dl:.3s">
+<!-- corner floaters -->
+<img class="cc" src="public/pinkiepie-pinkie-pie-dancing.gif"
+     style="bottom:3%;left:0;width:clamp(42px,9vw,68px);--d:3.8s;--r:-8deg;--dl:.1s">
+<img class="cc" src="public/rainbow-dash.gif"
+     style="bottom:3%;right:0;width:clamp(42px,9vw,68px);--d:4.2s;--r:7deg;--dl:.5s">
+<img class="cc" src="public/pikaçu.gif"
+     style="top:5%;right:1%;width:clamp(36px,7.5vw,58px);--d:3.2s;--r:10deg;--dl:.8s">
+<img class="cc" src="public/furret-cute.gif"
+     style="top:7%;left:1%;width:clamp(34px,7.5vw,55px);--d:4.6s;--r:-6deg;--dl:.3s">
 
-<!-- ══════════ HERO ══════════ -->
+<!-- ══ HERO ══ -->
 <section id="hero">
-  <p class="hero-eyebrow">✨ para la persona más especial del universo ✨</p>
   <h1 class="hero-title">Feliz<br>Cumpleaños</h1>
-  <p class="hero-name">Marce 🌿</p>
-  <p class="hero-sub">Que este día sea tan brillante como tú</p>
-  <div class="scroll-arrow">⬇️</div>
+  <p class="hero-name">Marce</p>
+  <p class="hero-sub">ya es tu día, disfrútalo</p>
+  <div class="hero-arrow">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="#4ade80"><path d="M7 10l5 5 5-5z"/></svg>
+  </div>
 </section>
 
-<!-- ══════════ LEGENDARY CARD ══════════ -->
+<!-- ══ CARD ══ -->
 <section id="card-section" class="section">
-  <h2 class="s-title">⚡ Tu Carta Legendaria ⚡</h2>
-
+  <h2 class="s-title">
+    <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="#fbbf24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+    Tu Carta Legendaria
+    <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="#fbbf24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+  </h2>
   <div class="card-scene" id="card-scene">
     <div class="poke-card" id="poke-card">
       <div class="card-foil"></div>
       <div class="card-lines"></div>
       <div class="card-inner">
-
         <div class="card-header">
-          <span class="card-badge">⭐ LEGENDARIA</span>
-          <span class="card-name">Marce ✨</span>
-          <span class="card-hp"><b>∞</b> PS</span>
+          <span class="card-badge">LEGENDARIA</span>
+          <span class="card-name">Marce</span>
+          <span class="card-hp"><b>&#8734;</b> PS</span>
         </div>
-
         <div class="card-type-row">
-          <span class="ti ti-grass">🌿</span>
-          <span class="ti ti-star">⭐</span>
-          <span class="type-label">&nbsp;Verde · Legendario · Shiny</span>
+          <span class="ti ti-g"></span>
+          <span class="ti ti-s"></span>
+          <span class="type-lbl">&nbsp;Verde &middot; Legendario &middot; Shiny</span>
         </div>
-
         <div class="card-art">
-          <img src="public/marcedeverde.jpg" alt="Marce" id="card-img">
+          <img src="public/marce1.jpg" alt="Marce">
         </div>
-
         <div class="card-ability">
           <div class="ab-row">
             <div class="ab-icons">
-              <span class="ti ti-grass" style="width:9px;height:9px;font-size:.55em">🌿</span>
-              <span class="ti ti-grass" style="width:9px;height:9px;font-size:.55em">🌿</span>
+              <span class="ti ti-g" style="width:7px;height:7px"></span>
+              <span class="ti ti-g" style="width:7px;height:7px"></span>
             </div>
             <span class="ab-name">Magia de la Amistad</span>
-            <span class="ab-dmg">💚</span>
+            <span class="ab-dmg">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#4ade80"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </span>
           </div>
-          <p class="ab-desc">Todos los que la rodean se llenan de alegría automáticamente. Este efecto no puede ser cancelado ni resistido.</p>
+          <p class="ab-desc">Todos los que la rodean se llenan de alegría. No puede ser cancelado.</p>
         </div>
-
         <div class="card-ability">
           <div class="ab-row">
             <div class="ab-icons">
-              <span class="ti ti-grass" style="width:9px;height:9px;font-size:.55em">🌿</span>
-              <span class="ti ti-star"  style="width:9px;height:9px;font-size:.55em">⭐</span>
+              <span class="ti ti-g" style="width:7px;height:7px"></span>
+              <span class="ti ti-s" style="width:7px;height:7px"></span>
             </div>
             <span class="ab-name">Floración Eterna</span>
-            <span class="ab-dmg">∞×</span>
+            <span class="ab-dmg">&#8734;&times;</span>
           </div>
-          <p class="ab-desc">Por cada año de vida este Pokémon se vuelve más brillante y más poderoso. Daño: ilimitado.</p>
+          <p class="ab-desc">Cada año que pasa este Pokémon se vuelve más brillante. Daño ilimitado.</p>
         </div>
-
         <hr class="card-divider">
-
         <div class="card-stats">
-          <span><span class="stat-lbl">Debilidad</span> 🌸 +0</span>
-          <span><span class="stat-lbl">Resistencia</span> —</span>
-          <span><span class="stat-lbl">Retirada</span> ✨ 0</span>
+          <span><span class="sl">Debilidad</span> +0</span>
+          <span><span class="sl">Resistencia</span> &mdash;</span>
+          <span><span class="sl">Retirada</span> 0</span>
         </div>
-
         <div class="card-rule">
-          <span class="rule-header">Regla Legendaria ✨</span>
-          <span class="rule-body">Cuando Marce entra al campo todos sonríen. Su rival recibe <b style="color:#4ade80">∞ puntos</b> de envidia y abandona la partida.</span>
+          <span class="rh">Regla Legendaria</span>
+          <span class="rb">Cuando Marce entra al campo todos sonríen. Su rival recibe <b style="color:#4ade80">&#8734; pts</b> de envidia y abandona la partida.</span>
         </div>
-
-      </div><!-- /card-inner -->
-    </div><!-- /poke-card -->
-  </div><!-- /card-scene -->
-
-  <p class="card-hint">🖱️ mueve el cursor sobre la carta &nbsp;·&nbsp; 📱 inclina el teléfono</p>
+      </div>
+    </div>
+  </div>
+  <p class="card-hint">cursor sobre la carta &nbsp;&middot;&nbsp; inclina el cel</p>
 </section>
 
-<!-- ══════════ GALLERY ══════════ -->
-<section id="gallery" class="section">
-  <h2 class="s-title">📸 La Protagonista</h2>
-  <div class="gallery-grid">
-    <div class="gi">
-      <img src="public/marce1.jpg" alt="Marce">
-      <span class="gi-label">✨ Marce ✨</span>
+<!-- ══ CHAOS: fotos + ponies + pokemon mezclados ══ -->
+<section id="chaos-section" class="section">
+  <h2 class="s-title">
+    <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="var(--g1)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+  </h2>
+  <div class="chaos-board">
+
+    <!-- Twilight bailando -->
+    <div class="cb" style="--r:-9deg;--ty:15px">
+      <img src="public/twilight-sparkle-crown-dacing with black glasses.gif"
+           style="height:clamp(72px,18vw,108px);filter:drop-shadow(0 4px 12px rgba(168,85,247,.4))">
     </div>
-    <div class="gi">
-      <img src="public/marcedeverde.jpg" alt="Marce de verde">
-      <span class="gi-label">💚 Verde &amp; Hermosa</span>
+
+    <!-- FOTO 1 (marce1) con Twilight PNG pegada abajo derecha -->
+    <div class="cb" style="--r:-5deg;--ty:8px">
+      <div class="ph-frame">
+        <img class="ph-img" src="public/marce1.jpg"
+             style="width:clamp(120px,32vw,185px)">
+        <img class="ph-sticker" src="public/twilight.png"
+             style="width:42%;right:-16%;bottom:-18%">
+      </div>
     </div>
-    <div class="gi">
-      <img src="public/marceunpocoverde.jpg" alt="Marce un poco verde">
-      <span class="gi-label">🌿 Siempre verde</span>
+
+    <!-- Pikachu -->
+    <div class="cb" style="--r:6deg;--ty:-12px">
+      <img src="public/pikaçu.gif"
+           style="height:clamp(60px,15vw,88px);filter:drop-shadow(0 0 12px rgba(251,191,36,.6))">
     </div>
+
+    <!-- FOTO 2 (de verde) con Rainbow Dash PNG encima izq -->
+    <div class="cb" style="--r:4deg;--ty:-8px">
+      <div class="ph-frame">
+        <img class="ph-img" src="public/marcedeverde.jpg"
+             style="width:clamp(130px,35vw,200px)">
+        <img class="ph-sticker" src="public/rainbow dash.png"
+             style="width:48%;left:-18%;top:-14%">
+      </div>
+    </div>
+
+    <!-- Fluttershy bailando -->
+    <div class="cb" style="--r:-6deg;--ty:20px">
+      <img src="public/transparent-fluttershy-dancing.gif"
+           style="height:clamp(68px,17vw,100px);filter:drop-shadow(0 4px 10px rgba(244,114,182,.3))">
+    </div>
+
+    <!-- FOTO 3 (un poco verde) con Pinkie PNG abajo izq -->
+    <div class="cb" style="--r:-3deg;--ty:12px">
+      <div class="ph-frame">
+        <img class="ph-img" src="public/marceunpocoverde.jpg"
+             style="width:clamp(115px,30vw,175px)">
+        <img class="ph-sticker" src="public/pinkipie.png"
+             style="width:50%;right:-20%;bottom:-16%">
+      </div>
+    </div>
+
+    <!-- Snorlax dormilón -->
+    <div class="cb" style="--r:8deg;--ty:-6px">
+      <img src="public/snorlax-snorlax-pokemon.gif"
+           style="height:clamp(58px,14vw,84px);filter:drop-shadow(0 0 10px rgba(139,92,246,.45))">
+    </div>
+
+    <!-- Derpy bailando -->
+    <div class="cb" style="--r:-7deg;--ty:10px">
+      <img src="public/derpy-mlp-dancing.gif"
+           style="height:clamp(65px,16vw,92px);filter:drop-shadow(0 4px 10px rgba(255,255,255,.2))">
+    </div>
+
+    <!-- Rarity PNG flotando -->
+    <div class="cb" style="--r:11deg;--ty:-8px">
+      <img src="public/rarity.png"
+           style="height:clamp(52px,13vw,76px);filter:drop-shadow(0 3px 10px rgba(244,114,182,.4))">
+    </div>
+
+    <!-- Charmander girando -->
+    <div class="cb" style="--r:-4deg;--ty:14px">
+      <img src="public/spin-charmander.gif"
+           style="height:clamp(52px,13vw,74px);filter:drop-shadow(0 0 10px rgba(251,146,60,.55))">
+    </div>
+
+    <!-- Applejack bailando -->
+    <div class="cb" style="--r:5deg;--ty:-14px">
+      <img src="public/mlp-fimapplejack dancing.gif"
+           style="height:clamp(68px,17vw,98px);filter:drop-shadow(0 4px 10px rgba(251,191,36,.3))">
+    </div>
+
+    <!-- Furret -->
+    <div class="cb" style="--r:-10deg;--ty:5px">
+      <img src="public/furret-cute.gif"
+           style="height:clamp(55px,13vw,78px);filter:drop-shadow(0 0 8px rgba(251,191,36,.4))">
+    </div>
+
+    <!-- Fluttershy PNG (static, como sticker) -->
+    <div class="cb" style="--r:7deg;--ty:-10px">
+      <img src="public/fluttershy.png"
+           style="height:clamp(58px,14vw,82px);filter:drop-shadow(0 3px 10px rgba(255,255,255,.15))">
+    </div>
+
+    <!-- Squirtle bailando -->
+    <div class="cb" style="--r:-5deg;--ty:18px">
+      <img src="public/baile-insano-squirtle.gif"
+           style="height:clamp(62px,15vw,88px);filter:drop-shadow(0 0 12px rgba(96,165,250,.5))">
+    </div>
+
+    <!-- Arcanine -->
+    <div class="cb" style="--r:4deg;--ty:-8px">
+      <img src="public/arcanine.gif"
+           style="height:clamp(68px,17vw,100px);filter:drop-shadow(0 0 12px rgba(239,68,68,.5))">
+    </div>
+
+    <!-- Pinkie banana suit -->
+    <div class="cb" style="--r:-6deg;--ty:6px">
+      <img src="public/mlp-my-little-pony-pinkipie-dancing in a banana suit.gif"
+           style="height:clamp(68px,17vw,98px);filter:drop-shadow(0 4px 10px rgba(251,191,36,.25))">
+    </div>
+
+    <!-- Derpy PNG -->
+    <div class="cb" style="--r:9deg;--ty:-12px">
+      <img src="public/derpy.png"
+           style="height:clamp(52px,13vw,74px);filter:drop-shadow(0 3px 8px rgba(255,255,255,.12))">
+    </div>
+
   </div>
 </section>
 
-<!-- ══════════ PARADE ══════════ -->
+<!-- ══ PARADE — todos mezclados ══ -->
 <section id="parade">
-  <h2 class="s-title">🎉 Tu equipo te celebra 🎉</h2>
   <div style="overflow:hidden">
     <div class="parade-track" id="parade-track"></div>
   </div>
 </section>
 
-<!-- ══════════ POKEMON TEAM ══════════ -->
-<section id="pokemon" class="section">
-  <h2 class="s-title">⚡ Tu Equipo Pokémon ⚡</h2>
-  <div class="poke-grid">
-    <div class="poke-item" style="--pg:rgba(251,191,36,.35)">
-      <img src="public/pikaçu.gif" alt="Pikachu"
-           style="filter:drop-shadow(0 0 12px rgba(251,191,36,.7))">
-      <span style="--pc:#fde68a">Pikachu</span>
-    </div>
-    <div class="poke-item" style="--pg:rgba(251,146,60,.35)">
-      <img src="public/spin-charmander.gif" alt="Charmander"
-           style="filter:drop-shadow(0 0 12px rgba(251,146,60,.65))">
-      <span style="--pc:#fed7aa">Charmander</span>
-    </div>
-    <div class="poke-item" style="--pg:rgba(239,68,68,.35)">
-      <img src="public/arcanine.gif" alt="Arcanine"
-           style="filter:drop-shadow(0 0 12px rgba(239,68,68,.55))">
-      <span style="--pc:#fca5a5">Arcanine</span>
-    </div>
-    <div class="poke-item" style="--pg:rgba(139,92,246,.35)">
-      <img src="public/snorlax-snorlax-pokemon.gif" alt="Snorlax"
-           style="filter:drop-shadow(0 0 12px rgba(139,92,246,.5))">
-      <span style="--pc:#c4b5fd">Snorlax</span>
-    </div>
-    <div class="poke-item" style="--pg:rgba(251,191,36,.35)">
-      <img src="public/furret-cute.gif" alt="Furret"
-           style="filter:drop-shadow(0 0 12px rgba(251,191,36,.5))">
-      <span style="--pc:#fde68a">Furret</span>
-    </div>
-    <div class="poke-item" style="--pg:rgba(96,165,250,.35)">
-      <img src="public/baile-insano-squirtle.gif" alt="Squirtle"
-           style="filter:drop-shadow(0 0 12px rgba(96,165,250,.55))">
-      <span style="--pc:#bfdbfe">Squirtle</span>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ MLP CORNER ══════════ -->
-<section id="mlp-corner" class="section">
-  <h2 class="s-title" style="color:var(--pink);text-shadow:0 0 28px rgba(244,114,182,.4)">
-    🦄 Tus Ponies Favoritas 🦄
-  </h2>
-  <div class="mlp-grid">
-    <div class="mlp-item">
-      <img src="public/twilight.png" alt="Twilight Sparkle">
-      <span>Twilight Sparkle</span>
-    </div>
-    <div class="mlp-item">
-      <img src="public/rainbow dash.png" alt="Rainbow Dash">
-      <span>Rainbow Dash</span>
-    </div>
-    <div class="mlp-item">
-      <img src="public/pinkipie.png" alt="Pinkie Pie">
-      <span>Pinkie Pie</span>
-    </div>
-    <div class="mlp-item">
-      <img src="public/fluttershy.png" alt="Fluttershy">
-      <span>Fluttershy</span>
-    </div>
-    <div class="mlp-item">
-      <img src="public/rarity.png" alt="Rarity">
-      <span>Rarity</span>
-    </div>
-    <div class="mlp-item">
-      <img src="public/applejack.png" alt="Applejack">
-      <span>Applejack</span>
-    </div>
-    <div class="mlp-item">
-      <img src="public/derpy.png" alt="Derpy">
-      <span>Derpy 💜</span>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ MESSAGE ══════════ -->
+<!-- ══ MESSAGE ══ -->
 <section id="msg-section" class="section">
-  <h2 class="s-title">💚 Para Ti, Marce 💚</h2>
+  <h2 class="s-title">
+    <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="#4ade80"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+  </h2>
   <div class="msg-card">
     <div class="bears-row">
-      <img class="bear-gif" src="public/joke-bear-jokebear.gif"      style="--bd:.7s;--bdl:0s">
-      <img class="bear-gif" src="public/jokebear-nongdamgom.gif"     style="--bd:.85s;--bdl:.12s">
-      <img class="bear-gif" src="public/jokebearnote-joke-bear.gif"  style="--bd:.75s;--bdl:.25s">
-      <img class="bear-gif" src="public/jokerbear-joke-bear.gif"     style="--bd:.9s;--bdl:.38s">
+      <img class="bear-gif" src="public/joke-bear-jokebear.gif"     style="--bd:.7s;--bdl:0s">
+      <img class="bear-gif" src="public/jokebear-nongdamgom.gif"    style="--bd:.85s;--bdl:.12s">
+      <img class="bear-gif" src="public/jokebearnote-joke-bear.gif" style="--bd:.76s;--bdl:.24s">
+      <img class="bear-gif" src="public/jokerbear-joke-bear.gif"    style="--bd:.92s;--bdl:.36s">
     </div>
     <p class="msg-text">
-      Hoy es un día especial porque<br>
-      <strong>tú eres especial.</strong><br><br>
-      Que este año esté lleno de<br>
-      <span class="purple">arcoíris mágicos</span>, ponies bailando,<br>
-      y muchos <span class="pink">Pokémon shiny</span> en tu camino.<br><br>
-      💚 Que todo lo verde que amas<br>
-      florezca aún más este año. 💚<br><br>
-      <strong>¡Feliz cumpleaños Marce! 🎂🌿✨</strong>
+      ya eres mayor y sigues siendo igual de ridícula<br>
+      <strong>en el buen sentido, claro</strong><br><br>
+      que este año tengas <span class="pk">Pokémon shiny</span>,<br>
+      ponies que no te fallen<br>
+      y todo lo verde que quieras<br><br>
+      <strong>feliz cumpleaños Marce</strong>
     </p>
   </div>
-
   <div class="extra-bears">
-    <img src="public/nongdamgom-bear.gif"             style="height:clamp(55px,14vw,78px)">
-    <img src="public/jokebear-농담곰.gif"              style="height:clamp(55px,14vw,78px)">
-    <img src="public/신나는농담곰-정신사나운농담곰.gif"  style="height:clamp(55px,14vw,78px)">
-    <img src="public/bbibenho.gif"                     style="height:clamp(55px,14vw,78px)">
-    <img src="public/bear-so-cute-funny-point-flower-so-cute.gif" style="height:clamp(55px,14vw,78px)">
-    <img src="public/joke-bear-jokebear (1).gif"      style="height:clamp(55px,14vw,78px)">
-    <img src="public/jokebear-농담곰 (1).gif"         style="height:clamp(55px,14vw,78px)">
+    <img src="public/nongdamgom-bear.gif"             style="height:clamp(48px,12vw,70px)">
+    <img src="public/jokebear-농담곰.gif"              style="height:clamp(48px,12vw,70px)">
+    <img src="public/신나는농담곰-정신사나운농담곰.gif"  style="height:clamp(48px,12vw,70px)">
+    <img src="public/bbibenho.gif"                     style="height:clamp(48px,12vw,70px)">
+    <img src="public/bear-so-cute-funny-point-flower-so-cute.gif" style="height:clamp(48px,12vw,70px)">
+    <img src="public/joke-bear-jokebear (1).gif"      style="height:clamp(48px,12vw,70px)">
+    <img src="public/jokebear-농담곰 (1).gif"         style="height:clamp(48px,12vw,70px)">
   </div>
 </section>
 
-<!-- ══════════ ZELDA BONUS ══════════ -->
-<section class="section" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.5rem;
-  background:radial-gradient(ellipse 60% 40% at 50% 50%,rgba(251,191,36,.06) 0%,transparent 65%)">
-  <h2 class="s-title" style="color:#fbbf24;text-shadow:0 0 25px rgba(251,191,36,.4)">
-    🗡️ Y también... 🗡️
+<!-- ══ ZELDA bonus ══ -->
+<section id="zelda-section" class="section">
+  <h2 class="s-title" style="color:#fbbf24;text-shadow:0 0 20px rgba(251,191,36,.4)">
+    <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="#fbbf24"><path d="M14.5 2.5c0 1.5-1.5 7-1.5 7h-2S9.5 4 9.5 2.5a2.5 2.5 0 015 0zM5 8c1.1 0 2 .9 2 2H3c0-1.1.9-2 2-2zm14 0c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2zm-7 3c-4.97 0-9 2.69-9 6v1h18v-1c0-3.31-4.03-6-9-6z"/></svg>
+    bonus stage
+    <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="#fbbf24"><path d="M14.5 2.5c0 1.5-1.5 7-1.5 7h-2S9.5 4 9.5 2.5a2.5 2.5 0 015 0zM5 8c1.1 0 2 .9 2 2H3c0-1.1.9-2 2-2zm14 0c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2zm-7 3c-4.97 0-9 2.69-9 6v1h18v-1c0-3.31-4.03-6-9-6z"/></svg>
   </h2>
-  <div style="display:flex;justify-content:center;gap:clamp(1rem,5vw,2.5rem);flex-wrap:wrap;align-items:flex-end">
-    <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
-      <img src="public/link-legend-of-zelda.gif" style="height:clamp(70px,18vw,100px);filter:drop-shadow(0 0 14px rgba(74,222,128,.5))">
-      <span style="font-weight:900;font-size:clamp(.65rem,2vw,.82rem);color:#86efac">Link</span>
+  <div class="zl-row">
+    <div class="zl" style="transform:rotate(-5deg)">
+      <img src="public/link-legend-of-zelda.gif"
+           style="height:clamp(65px,16vw,95px);filter:drop-shadow(0 0 12px rgba(74,222,128,.5))">
+      <span style="color:#86efac">Link</span>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
-      <img src="public/zelda-legend-of-zelda.gif" style="height:clamp(70px,18vw,100px);filter:drop-shadow(0 0 14px rgba(251,191,36,.5))">
-      <span style="font-weight:900;font-size:clamp(.65rem,2vw,.82rem);color:#fde68a">Zelda</span>
+    <div class="zl" style="transform:rotate(4deg) translateY(-6px)">
+      <img src="public/zelda-legend-of-zelda.gif"
+           style="height:clamp(65px,16vw,95px);filter:drop-shadow(0 0 12px rgba(251,191,36,.5))">
+      <span style="color:#fde68a">Zelda</span>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
-      <img src="public/malons-rose-malon-rose.gif" style="height:clamp(70px,18vw,100px);filter:drop-shadow(0 0 14px rgba(244,114,182,.5))">
-      <span style="font-weight:900;font-size:clamp(.65rem,2vw,.82rem);color:#f9a8d4">Malon</span>
+    <div class="zl" style="transform:rotate(-3deg) translateY(5px)">
+      <img src="public/malons-rose-malon-rose.gif"
+           style="height:clamp(65px,16vw,95px);filter:drop-shadow(0 0 10px rgba(244,114,182,.5))">
+      <span style="color:#f9a8d4">Malon</span>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
-      <img src="public/party-dancing.gif" style="height:clamp(70px,18vw,100px);filter:drop-shadow(0 0 14px rgba(74,222,128,.4))">
-      <span style="font-weight:900;font-size:clamp(.65rem,2vw,.82rem);color:#86efac">¡Fiesta!</span>
+    <div class="zl" style="transform:rotate(6deg)">
+      <img src="public/party-dancing.gif"
+           style="height:clamp(65px,16vw,95px);filter:drop-shadow(0 0 9px rgba(74,222,128,.35))">
+      <span style="color:#86efac">fiesta</span>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
-      <img src="public/jolly-jolly-dance.gif" style="height:clamp(70px,18vw,100px);filter:drop-shadow(0 0 14px rgba(168,85,247,.4))">
-      <span style="font-weight:900;font-size:clamp(.65rem,2vw,.82rem);color:#c084fc">Jolly</span>
+    <div class="zl" style="transform:rotate(-4deg) translateY(-4px)">
+      <img src="public/jolly-jolly-dance.gif"
+           style="height:clamp(65px,16vw,95px);filter:drop-shadow(0 0 9px rgba(168,85,247,.4))">
+      <span style="color:#c084fc">Jolly</span>
     </div>
   </div>
 </section>
 
-<footer>hecho con 💚 para Marce · 2025</footer>
+<footer>hecho con mucho verde para Marce &middot; 2025</footer>
 
 <script>
-// ══ Parade ══
-const CHARS = [
-  ['public/pinkiepie-pinkie-pie-dancing.gif','Pinkie Pie'],
-  ['public/rainbow-dash.gif','Rainbow Dash'],
-  ['public/transparent-fluttershy-dancing.gif','Fluttershy'],
-  ['public/twilight-sparkle-crown-dacing with black glasses.gif','Twilight ✨'],
-  ['public/mlp-my-little-pony pinkie pie dancing 2.gif','Pinkie 2.0'],
-  ['public/mlp-fimapplejack dancing.gif','Applejack'],
-  ['public/my-little-pony-cartoonsdancing.gif','MLP 🎉'],
-  ['public/mlp-my-little-pony-pinkipie-dancing in a banana suit.gif','Banana Pie 🍌'],
-  ['public/derpy-mlp-dancing.gif','Derpy 💜'],
-  ['public/pikaçu.gif','Pikachu ⚡'],
-  ['public/furret-cute.gif','Furret 🍂'],
-  ['public/joke-bear-jokebear.gif','JokeBear'],
-  ['public/jolly-jolly-dance.gif','Jolly'],
-  ['public/party-dancing.gif','Fiesta!'],
-  ['public/zelda-legend-of-zelda.gif','Zelda 🗡️'],
-];
-const track = document.getElementById('parade-track');
-[...CHARS,...CHARS].forEach(([src,lbl]) => {
-  const d = document.createElement('div'); d.className = 'pchar';
-  d.innerHTML = `<img src="${src}" alt="${lbl}"><span>${lbl}</span>`;
-  track.appendChild(d);
-});
-
-// ══ Canvas particles ══
-const cvs = document.getElementById('bg-canvas');
-const ctx = cvs.getContext('2d');
+// ── BG particles ──
+const cvs=document.getElementById('bg-canvas');
+const ctx=cvs.getContext('2d');
 let W,H;
-function resize(){ W=cvs.width=innerWidth; H=cvs.height=innerHeight; }
+const resize=()=>{W=cvs.width=innerWidth;H=cvs.height=innerHeight};
 resize(); addEventListener('resize',resize);
 const COLS=['#4ade80','#86efac','#bbf7d0','#16a34a','#22c55e','#a855f7','#f472b6','#fbbf24'];
-const pts = Array.from({length:90},()=>({
-  x:Math.random()*2000, y:Math.random()*2000,
+const pts=Array.from({length:80},()=>({
+  x:Math.random()*2e3,y:Math.random()*2e3,
   r:Math.random()*2+.4,
   c:COLS[Math.random()*COLS.length|0],
-  vx:(Math.random()-.5)*.35,
-  vy:(Math.random()-.5)*.35,
-  a:Math.random()*.55+.15
+  vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,
+  a:Math.random()*.5+.14
 }));
 (function loop(){
   ctx.clearRect(0,0,W,H);
   pts.forEach(p=>{
-    p.x=(p.x+p.vx+W*2)%(W*2);
-    p.y=(p.y+p.vy+H*2)%(H*2);
-    const bx=p.x%W, by=p.y%H;
-    const pulse=Math.sin(Date.now()/900+p.x*.01)*.25+.75;
-    ctx.globalAlpha=p.a*pulse;
+    p.x=(p.x+p.vx+W*2)%(W*2); p.y=(p.y+p.vy+H*2)%(H*2);
+    ctx.globalAlpha=p.a*(Math.sin(Date.now()/950+p.x*.012)*.25+.75);
     ctx.fillStyle=p.c;
-    ctx.beginPath(); ctx.arc(bx,by,p.r,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(p.x%W,p.y%H,p.r,0,Math.PI*2); ctx.fill();
   });
   ctx.globalAlpha=1;
   requestAnimationFrame(loop);
 })();
 
-// ══ Card tilt ══
+// ── Parade — everything mixed ──
+const ALL=[
+  'public/pinkiepie-pinkie-pie-dancing.gif',
+  'public/rainbow-dash.gif',
+  'public/transparent-fluttershy-dancing.gif',
+  'public/twilight-sparkle-crown-dacing with black glasses.gif',
+  'public/mlp-my-little-pony pinkie pie dancing 2.gif',
+  'public/mlp-fimapplejack dancing.gif',
+  'public/mlp-my-little-pony-pinkipie-dancing in a banana suit.gif',
+  'public/my-little-pony-cartoonsdancing.gif',
+  'public/derpy-mlp-dancing.gif',
+  'public/pikaçu.gif',
+  'public/furret-cute.gif',
+  'public/arcanine.gif',
+  'public/baile-insano-squirtle.gif',
+  'public/spin-charmander.gif',
+  'public/joke-bear-jokebear.gif',
+  'public/nongdamgom-bear.gif',
+  'public/jokerbear-joke-bear.gif',
+  'public/bbibenho.gif',
+  'public/jolly-jolly-dance.gif',
+  'public/party-dancing.gif',
+  'public/zelda-legend-of-zelda.gif',
+  'public/link-legend-of-zelda.gif',
+];
+const shuffled=ALL.sort(()=>Math.random()-.5);
+const track=document.getElementById('parade-track');
+[...shuffled,...shuffled].forEach(src=>{
+  const d=document.createElement('div'); d.className='pch';
+  const img=document.createElement('img'); img.src=src;
+  d.appendChild(img); track.appendChild(d);
+});
+
+// ── Card tilt ──
 const card=document.getElementById('poke-card');
 const scene=document.getElementById('card-scene');
-
 function applyTilt(nx,ny){
-  const rx=(ny-.5)*26, ry=(nx-.5)*-26;
+  const rx=(ny-.5)*24, ry=(nx-.5)*-24;
   const angle=Math.atan2(ny-.5,nx-.5)*(180/Math.PI);
-  card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.05,1.05,1.05)`;
+  card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.04,1.04,1.04)`;
   card.style.setProperty('--mx',`${nx*100}%`);
   card.style.setProperty('--my',`${ny*100}%`);
   card.style.setProperty('--angle',angle.toFixed(1));
 }
-function resetTilt(){
-  card.style.transform='';
-  card.style.removeProperty('--mx');
-  card.style.removeProperty('--my');
-}
-
+function resetTilt(){ card.style.transform=''; card.style.removeProperty('--mx'); card.style.removeProperty('--my'); }
 scene.addEventListener('mousemove',e=>{
   const r=card.getBoundingClientRect();
   applyTilt((e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height);
 });
 scene.addEventListener('mouseleave',resetTilt);
-
-// mobile gyro
 addEventListener('deviceorientation',e=>{
   if(e.beta==null) return;
-  const nx=Math.min(1,Math.max(0,(e.gamma+35)/70));
-  const ny=Math.min(1,Math.max(0,(e.beta -15)/60));
-  applyTilt(nx,ny);
+  applyTilt(Math.min(1,Math.max(0,(e.gamma+35)/70)),Math.min(1,Math.max(0,(e.beta-15)/60)));
 },{passive:true});
-
-// touch tap toggle on mobile
-let toggled=false;
+let tog=false;
 card.addEventListener('touchstart',()=>{
-  toggled=!toggled;
-  card.classList.toggle('active',toggled);
-  if(toggled) applyTilt(.5+Math.random()*.15-.075,.5+Math.random()*.15-.075);
+  tog=!tog; card.classList.toggle('active',tog);
+  if(tog) applyTilt(.5+Math.random()*.1-.05,.5+Math.random()*.1-.05);
   else resetTilt();
 },{passive:true});
 
-// sparkles on hover
-const SPARK_COLS=['#4ade80','#bbf7d0','#f472b6','#a855f7','#fbbf24','#ffffff'];
+// card sparkles
+const SC=['#4ade80','#bbf7d0','#f472b6','#a855f7','#fbbf24'];
 scene.addEventListener('mousemove',e=>{
-  if(Math.random()>.82){
+  if(Math.random()>.84){
     const r=card.getBoundingClientRect();
     const s=document.createElement('div'); s.className='cspark';
-    const sz=Math.random()*4+2;
-    s.style.cssText=`
-      left:${e.clientX-r.left}px;top:${e.clientY-r.top}px;
-      width:${sz}px;height:${sz}px;
-      background:${SPARK_COLS[Math.random()*SPARK_COLS.length|0]};
-      --tx:${(Math.random()-.5)*70}px;--ty:${-(Math.random()*55+15)}px;
-      --d:${(.7+Math.random()*.5).toFixed(2)}s;
-    `;
-    card.appendChild(s);
-    setTimeout(()=>s.remove(),1200);
+    const sz=Math.random()*4+1.5;
+    s.style.cssText=`left:${e.clientX-r.left}px;top:${e.clientY-r.top}px;width:${sz}px;height:${sz}px;background:${SC[Math.random()*SC.length|0]};--tx:${(Math.random()-.5)*65}px;--ty:${-(Math.random()*50+12)}px;--d:${(.6+Math.random()*.45).toFixed(2)}s`;
+    card.appendChild(s); setTimeout(()=>s.remove(),1100);
   }
 });
 
-// ══ Confetti on load ══
+// ── Confetti ──
 function confetti(){
   const con=document.getElementById('confetti');
   const C=['#4ade80','#86efac','#a855f7','#f472b6','#fbbf24','#60a5fa','#fff','#fb923c'];
-  for(let i=0;i<120;i++) setTimeout(()=>{
+  for(let i=0;i<100;i++) setTimeout(()=>{
     const p=document.createElement('div'); p.className='cp';
     const sz=Math.random()*10+5;
-    p.style.cssText=`
-      left:${Math.random()*100}%;
-      width:${sz}px;height:${sz*(.5+Math.random()*.5)}px;
-      background:${C[Math.random()*C.length|0]};
-      border-radius:${Math.random()>.45?'50%':'3px'};
-      --drift:${(Math.random()-.5)*220}px;
-      animation-duration:${(2.2+Math.random()*2.5).toFixed(2)}s;
-      animation-delay:${(Math.random()*.6).toFixed(2)}s;
-    `;
-    con.appendChild(p);
-    setTimeout(()=>p.remove(),5000);
-  },i*22);
+    p.style.cssText=`left:${Math.random()*100}%;width:${sz}px;height:${sz*(.5+Math.random()*.5)}px;background:${C[Math.random()*C.length|0]};border-radius:${Math.random()>.45?'50%':'3px'};--drift:${(Math.random()-.5)*215}px;animation-duration:${(2.2+Math.random()*2.4).toFixed(2)}s;animation-delay:${(Math.random()*.55).toFixed(2)}s`;
+    con.appendChild(p); setTimeout(()=>p.remove(),5000);
+  },i*24);
 }
 addEventListener('load',()=>setTimeout(confetti,500));
 </script>
