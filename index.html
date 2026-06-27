@@ -154,6 +154,7 @@
     #card-section {
       display: flex; flex-direction: column; align-items: center;
       background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(74,222,128,.05) 0%, transparent 65%);
+      padding-bottom: clamp(.8rem,3vw,1.5rem);
     }
     .card-scene {
       width: min(318px, 86vw);
@@ -395,7 +396,7 @@
   <img class="hero-gif" src="public/spin-charmander.gif"
        style="top:85%;left:30%;width:clamp(88px,17vw,136px);--hr:-6deg;--hd:3.8s;--hdl:.4s">
   <img class="hero-gif" src="public/jolly-jolly-dance.gif"
-       style="top:72%;left:16%;width:clamp(72px,13vw,105px);--hr:9deg;--hd:4.1s;--hdl:.2s">
+       style="top:70%;left:5%;width:clamp(125px,13vw,105px);--hr:9deg;--hd:4.1s;--hdl:.2s">
   <img class="hero-gif" src="public/mlp-fimapplejack dancing.gif"
        style="top:20%;left:32%;width:clamp(82px,15vw,122px);--hr:-4deg;--hd:4.4s;--hdl:.9s">
   <img class="hero-gif" src="public/derpy-mlp-dancing.gif"
@@ -427,7 +428,7 @@
 <section id="card-section" class="section">
   <h2 class="s-title">
     <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="#fbbf24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
-    Tu Carta Legendaria
+    Tu Carta Pokémon
     <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="#fbbf24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
   </h2>
   <div class="card-scene" id="card-scene">
@@ -436,7 +437,7 @@
       <div class="card-lines"></div>
       <div class="card-inner">
         <div class="card-header">
-          <span class="card-badge">LEGENDARIA</span>
+          <span class="card-badge">POKÉMON</span>
           <span class="card-name">Marce</span>
           <span class="card-hp"><b>&#8734;</b> PS</span>
         </div>
@@ -485,7 +486,6 @@
       </div>
     </div>
   </div>
-  <p class="card-hint">cursor sobre la carta &nbsp;&middot;&nbsp; inclina el cel</p>
 </section>
 
 <!-- ══ CHAOS BOARD ══ -->
@@ -611,12 +611,12 @@
       <img class="bear-gif" src="public/jokerbear-joke-bear.gif"    style="--bd:.92s;--bdl:.36s">
     </div>
     <p class="msg-text">
-      ya eres mayor y sigues siendo igual de ridícula<br>
-      <strong>en el buen sentido, claro</strong><br><br>
-      que este año tengas <span class="pk">Pokémon shiny</span>,<br>
-      ponies que no te fallen<br>
-      y todo lo verde que quieras<br><br>
-      <strong>feliz cumpleaños Marce</strong>
+    
+      <strong>No es mucho pero espero que te haya gustado</strong><br><br>
+      Nos conocimos en tiktok de forma random pero ya sabes que desde el principio me caíste super bien por que tenemos un humor bien tipico los dos JKAJKAJ y tambien tenemos muchas cosas en comun que fuimos viendo con el tiempo espero que te guste este pequeño regalo y gracias por ser mi amiga y mantener la racha JAJAJ, y gracias por haberme recomendado las clases de pintura y los videos de salsa y muchas cosas mas, espero que la pases genial hoy y todo tu año :D<br>
+    
+    
+      <strong>feliz cumpleaños Marce :D</strong>
     </p>
   </div>
   <div class="extra-bears">
@@ -769,10 +769,32 @@ scene.addEventListener('mousemove', e => {
   applyTilt((e.clientX-r.left)/r.width, (e.clientY-r.top)/r.height);
 });
 scene.addEventListener('mouseleave', resetTilt);
-addEventListener('deviceorientation', e => {
+function handleOrientation(e) {
   if (e.beta == null) return;
   applyTilt(Math.min(1,Math.max(0,(e.gamma+35)/70)), Math.min(1,Math.max(0,(e.beta-15)/60)));
-}, {passive:true});
+}
+function enableOrientation() {
+  if (typeof DeviceOrientationEvent !== 'undefined' &&
+      typeof DeviceOrientationEvent.requestPermission === 'function') {
+    DeviceOrientationEvent.requestPermission()
+      .then(s => { if (s === 'granted') addEventListener('deviceorientation', handleOrientation, {passive:true}); })
+      .catch(() => {});
+  } else {
+    addEventListener('deviceorientation', handleOrientation, {passive:true});
+  }
+}
+// request on first touch anywhere (iOS needs user gesture)
+let orientationRequested = false;
+document.addEventListener('touchstart', () => {
+  if (orientationRequested) return;
+  orientationRequested = true;
+  enableOrientation();
+}, {passive:true, once:true});
+// non-iOS: just listen directly
+if (typeof DeviceOrientationEvent === 'undefined' ||
+    typeof DeviceOrientationEvent.requestPermission !== 'function') {
+  addEventListener('deviceorientation', handleOrientation, {passive:true});
+}
 let tog = false;
 card.addEventListener('touchstart', () => {
   tog = !tog; card.classList.toggle('active', tog);
