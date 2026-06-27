@@ -226,9 +226,8 @@
       border: 2px solid rgba(74,222,128,.42);
       box-shadow: 0 0 16px rgba(74,222,128,.25);
       position: relative;
-      background: #0a2012;
     }
-    .card-art img { width: 100%; height: 100%; object-fit: contain; object-position: center center; display: block; }
+    .card-art img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block; }
     .card-art::after {
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(135deg,transparent 30%,rgba(74,222,128,.06) 50%,transparent 70%);
@@ -318,16 +317,6 @@
     .msg-text .pk { color: #f9a8d4; }
     .extra-bears { display: flex; justify-content: center; gap: clamp(.35rem,2vw,.9rem); flex-wrap: wrap; }
 
-    /* ════ ZELDA ════ */
-    #zelda-section {
-      display: flex; flex-direction: column; align-items: center; gap: 1.4rem;
-      background: radial-gradient(ellipse 50% 35% at 50% 50%, rgba(251,191,36,.045) 0%, transparent 60%);
-    }
-    .zl-row { display: flex; justify-content: center; align-items: flex-end; gap: clamp(.7rem,3.5vw,1.8rem); flex-wrap: wrap; }
-    .zl { display: flex; flex-direction: column; align-items: center; gap: .35rem; flex-shrink: 0; transition: transform .2s; }
-    .zl:hover { transform: translateY(-8px) scale(1.1); }
-    .zl img { display: block; width: auto; }
-    .zl span { font-size: clamp(.6rem,1.9vw,.76rem); font-weight: 900; }
 
     footer { position: relative; z-index: 2; text-align: center; padding: 2rem 1rem; font-size: .72rem; color: rgba(255,255,255,.14); }
   </style>
@@ -357,33 +346,33 @@
 
 <!-- corner floaters -->
 <img class="cc" src="public/pinkiepie-pinkie-pie-dancing.gif"
-     style="bottom:3%;left:0;width:clamp(42px,9vw,68px);--d:3.8s;--r:-8deg;--dl:.1s" id="pinkie-corner">
+     style="bottom:3%;left:0;width:clamp(75px,16vw,115px);--d:3.8s;--r:-8deg;--dl:.1s" id="pinkie-corner">
 <img class="cc" src="public/rainbow-dash.gif"
-     style="bottom:3%;right:0;width:clamp(42px,9vw,68px);--d:4.2s;--r:7deg;--dl:.5s">
+     style="bottom:3%;right:0;width:clamp(75px,16vw,115px);--d:4.2s;--r:7deg;--dl:.5s">
 <img class="cc" src="public/pikaçu.gif"
-     style="top:5%;right:1%;width:clamp(36px,7.5vw,58px);--d:3.2s;--r:10deg;--dl:.8s">
+     style="top:5%;right:1%;width:clamp(62px,13vw,95px);--d:3.2s;--r:10deg;--dl:.8s">
 <img class="cc" src="public/furret-cute.gif"
-     style="top:7%;left:1%;width:clamp(34px,7.5vw,55px);--d:4.6s;--r:-6deg;--dl:.3s">
+     style="top:7%;left:1%;width:clamp(58px,12vw,88px);--d:4.6s;--r:-6deg;--dl:.3s">
 
 <!-- ══ HERO ══ -->
 <section id="hero">
   <!-- GIFs scattered inside hero -->
   <img class="hero-gif" src="public/rainbow-dash.gif"
-       style="top:8%;left:4%;width:clamp(52px,11vw,85px);--hr:-7deg;--hd:3.4s;--hdl:0s">
+       style="top:8%;left:4%;width:clamp(68px,14vw,110px);--hr:-7deg;--hd:3.4s;--hdl:0s">
   <img class="hero-gif" src="public/transparent-fluttershy-dancing.gif"
-       style="top:12%;right:5%;width:clamp(52px,11vw,82px);--hr:6deg;--hd:4s;--hdl:.3s">
+       style="top:12%;right:5%;width:clamp(68px,14vw,108px);--hr:6deg;--hd:4s;--hdl:.3s">
   <img class="hero-gif" src="public/spin-charmander.gif"
-       style="bottom:28%;left:5%;width:clamp(44px,9vw,68px);--hr:-5deg;--hd:3.8s;--hdl:.6s">
+       style="bottom:28%;left:5%;width:clamp(58px,12vw,90px);--hr:-5deg;--hd:3.8s;--hdl:.6s">
   <img class="hero-gif" src="public/furret-cute.gif"
-       style="bottom:22%;right:6%;width:clamp(44px,9vw,65px);--hr:8deg;--hd:4.3s;--hdl:.2s">
+       style="bottom:22%;right:6%;width:clamp(58px,12vw,88px);--hr:8deg;--hd:4.3s;--hdl:.2s">
   <img class="hero-gif" src="public/derpy-mlp-dancing.gif"
-       style="top:40%;left:2%;width:clamp(50px,10vw,78px);--hr:-4deg;--hd:3.6s;--hdl:.9s">
+       style="top:40%;left:2%;width:clamp(65px,13vw,100px);--hr:-4deg;--hd:3.6s;--hdl:.9s">
   <img class="hero-gif" src="public/jolly-jolly-dance.gif"
-       style="top:38%;right:3%;width:clamp(50px,10vw,78px);--hr:5deg;--hd:4.1s;--hdl:.4s">
+       style="top:38%;right:3%;width:clamp(65px,13vw,100px);--hr:5deg;--hd:4.1s;--hdl:.4s">
   <img class="hero-gif" src="public/nongdamgom-bear.gif"
-       style="bottom:40%;left:1%;width:clamp(42px,8.5vw,62px);--hr:6deg;--hd:3.2s;--hdl:1s">
+       style="bottom:40%;left:1%;width:clamp(58px,12vw,85px);--hr:6deg;--hd:3.2s;--hdl:1s">
   <img class="hero-gif" src="public/snorlax-snorlax-pokemon.gif"
-       style="bottom:35%;right:2%;width:clamp(48px,10vw,74px);--hr:-6deg;--hd:5s;--hdl:.7s">
+       style="bottom:35%;right:2%;width:clamp(65px,13vw,95px);--hr:-6deg;--hd:5s;--hdl:.7s">
 
   <div class="hero-content">
     <h1 class="hero-title">Feliz<br>Cumpleaños</h1>
@@ -466,79 +455,99 @@
     <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="var(--g1)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
   </h2>
   <div class="chaos-board">
+
+    <!-- izquierda: gif + foto marcedeverde con Rainbow Dash + gif -->
     <div class="cb" style="--r:-9deg;--ty:15px">
       <img src="public/twilight-sparkle-crown-dacing with black glasses.gif"
-           style="height:clamp(72px,18vw,108px);filter:drop-shadow(0 4px 12px rgba(168,85,247,.4))">
+           style="height:clamp(88px,20vw,130px);filter:drop-shadow(0 4px 12px rgba(168,85,247,.4))">
     </div>
-    <div class="cb" style="--r:-5deg;--ty:8px">
+    <div class="cb" style="--r:5deg;--ty:-10px">
+      <img src="public/link-legend-of-zelda.gif"
+           style="height:clamp(80px,18vw,118px);filter:drop-shadow(0 4px 10px rgba(74,222,128,.45))">
+    </div>
+    <div class="cb" style="--r:-6deg;--ty:8px">
       <div class="ph-frame">
-        <img class="ph-img" src="public/marce1.jpg" style="width:clamp(120px,32vw,185px)">
-        <img class="ph-sticker" src="public/twilight.png" style="width:42%;right:-16%;bottom:-18%">
+        <img class="ph-img" src="public/marcedeverde.jpg" style="width:clamp(130px,34vw,195px)">
+        <img class="ph-sticker" src="public/rainbow dash.png" style="width:62%;left:-22%;top:-18%">
       </div>
     </div>
-    <div class="cb" style="--r:6deg;--ty:-12px">
+    <div class="cb" style="--r:7deg;--ty:-14px">
+      <img src="public/transparent-fluttershy-dancing.gif"
+           style="height:clamp(85px,19vw,125px);filter:drop-shadow(0 4px 10px rgba(244,114,182,.3))">
+    </div>
+
+    <!-- CENTRO: marce1 más grande con Twilight -->
+    <div class="cb" style="--r:-2deg;--ty:0px">
+      <div class="ph-frame" style="border-width:4px;box-shadow:0 12px 35px rgba(0,0,0,.7),0 0 30px rgba(74,222,128,.18)">
+        <img class="ph-img" src="public/marce1.jpg" style="width:clamp(160px,42vw,250px)">
+        <img class="ph-sticker" src="public/twilight.png" style="width:65%;right:-22%;bottom:-22%">
+      </div>
+    </div>
+
+    <!-- derecha: foto marceunpocoverde con Pinkie + gifs -->
+    <div class="cb" style="--r:-7deg;--ty:12px">
       <img src="public/pikaçu.gif"
-           style="height:clamp(60px,15vw,88px);filter:drop-shadow(0 0 12px rgba(251,191,36,.6))">
+           style="height:clamp(80px,18vw,118px);filter:drop-shadow(0 0 14px rgba(251,191,36,.65))">
     </div>
     <div class="cb" style="--r:4deg;--ty:-8px">
       <div class="ph-frame">
-        <img class="ph-img" src="public/marcedeverde.jpg" style="width:clamp(130px,35vw,200px)">
-        <img class="ph-sticker" src="public/rainbow dash.png" style="width:48%;left:-18%;top:-14%">
+        <img class="ph-img" src="public/marceunpocoverde.jpg" style="width:clamp(130px,34vw,195px)">
+        <img class="ph-sticker" src="public/pinkipie.png" style="width:65%;right:-22%;bottom:-20%">
       </div>
     </div>
-    <div class="cb" style="--r:-6deg;--ty:20px">
-      <img src="public/transparent-fluttershy-dancing.gif"
-           style="height:clamp(68px,17vw,100px);filter:drop-shadow(0 4px 10px rgba(244,114,182,.3))">
+    <div class="cb" style="--r:-5deg;--ty:-16px">
+      <img src="public/zelda-legend-of-zelda.gif"
+           style="height:clamp(82px,18vw,120px);filter:drop-shadow(0 4px 10px rgba(251,191,36,.5))">
     </div>
-    <div class="cb" style="--r:-3deg;--ty:12px">
-      <div class="ph-frame">
-        <img class="ph-img" src="public/marceunpocoverde.jpg" style="width:clamp(115px,30vw,175px)">
-        <img class="ph-sticker" src="public/pinkipie.png" style="width:50%;right:-20%;bottom:-16%">
-      </div>
+    <div class="cb" style="--r:8deg;--ty:10px">
+      <img src="public/mlp-fimapplejack dancing.gif"
+           style="height:clamp(85px,19vw,125px);filter:drop-shadow(0 4px 10px rgba(251,191,36,.3))">
     </div>
-    <div class="cb" style="--r:8deg;--ty:-6px">
-      <img src="public/snorlax-snorlax-pokemon.gif"
-           style="height:clamp(58px,14vw,84px);filter:drop-shadow(0 0 10px rgba(139,92,246,.45))">
-    </div>
-    <div class="cb" style="--r:-7deg;--ty:10px">
-      <img src="public/derpy-mlp-dancing.gif"
-           style="height:clamp(65px,16vw,92px);filter:drop-shadow(0 4px 10px rgba(255,255,255,.2))">
-    </div>
+
+    <!-- segunda fila de gifs -->
     <div class="cb" style="--r:11deg;--ty:-8px">
       <img src="public/rarity.png"
-           style="height:clamp(52px,13vw,76px);filter:drop-shadow(0 3px 10px rgba(244,114,182,.4))">
+           style="height:clamp(68px,15vw,98px);filter:drop-shadow(0 3px 10px rgba(244,114,182,.4))">
     </div>
-    <div class="cb" style="--r:-4deg;--ty:14px">
+    <div class="cb" style="--r:-4deg;--ty:16px">
       <img src="public/spin-charmander.gif"
-           style="height:clamp(52px,13vw,74px);filter:drop-shadow(0 0 10px rgba(251,146,60,.55))">
+           style="height:clamp(68px,15vw,95px);filter:drop-shadow(0 0 10px rgba(251,146,60,.55))">
     </div>
-    <div class="cb" style="--r:5deg;--ty:-14px">
-      <img src="public/mlp-fimapplejack dancing.gif"
-           style="height:clamp(68px,17vw,98px);filter:drop-shadow(0 4px 10px rgba(251,191,36,.3))">
+    <div class="cb" style="--r:6deg;--ty:-10px">
+      <img src="public/derpy-mlp-dancing.gif"
+           style="height:clamp(82px,18vw,120px);filter:drop-shadow(0 4px 10px rgba(255,255,255,.2))">
     </div>
-    <div class="cb" style="--r:-10deg;--ty:5px">
+    <div class="cb" style="--r:-10deg;--ty:8px">
       <img src="public/furret-cute.gif"
-           style="height:clamp(55px,13vw,78px);filter:drop-shadow(0 0 8px rgba(251,191,36,.4))">
+           style="height:clamp(72px,16vw,105px);filter:drop-shadow(0 0 8px rgba(251,191,36,.4))">
     </div>
-    <div class="cb" style="--r:7deg;--ty:-10px">
+    <div class="cb" style="--r:9deg;--ty:-12px">
       <img src="public/fluttershy.png"
-           style="height:clamp(58px,14vw,82px);filter:drop-shadow(0 3px 10px rgba(255,255,255,.15))">
+           style="height:clamp(72px,16vw,105px);filter:drop-shadow(0 3px 10px rgba(255,255,255,.15))">
     </div>
-    <div class="cb" style="--r:-5deg;--ty:18px">
+    <div class="cb" style="--r:-5deg;--ty:20px">
       <img src="public/baile-insano-squirtle.gif"
-           style="height:clamp(62px,15vw,88px);filter:drop-shadow(0 0 12px rgba(96,165,250,.5))">
+           style="height:clamp(80px,18vw,118px);filter:drop-shadow(0 0 12px rgba(96,165,250,.5))">
     </div>
     <div class="cb" style="--r:4deg;--ty:-8px">
       <img src="public/arcanine.gif"
-           style="height:clamp(68px,17vw,100px);filter:drop-shadow(0 0 12px rgba(239,68,68,.5))">
+           style="height:clamp(85px,19vw,125px);filter:drop-shadow(0 0 12px rgba(239,68,68,.5))">
     </div>
     <div class="cb" style="--r:-6deg;--ty:6px">
       <img src="public/mlp-my-little-pony-pinkipie-dancing in a banana suit.gif"
-           style="height:clamp(68px,17vw,98px)">
+           style="height:clamp(85px,19vw,122px)">
     </div>
-    <div class="cb" style="--r:9deg;--ty:-12px">
+    <div class="cb" style="--r:7deg;--ty:-14px">
+      <img src="public/malons-rose-malon-rose.gif"
+           style="height:clamp(80px,18vw,115px);filter:drop-shadow(0 4px 10px rgba(244,114,182,.4))">
+    </div>
+    <div class="cb" style="--r:-8deg;--ty:10px">
       <img src="public/derpy.png"
-           style="height:clamp(52px,13vw,74px);filter:drop-shadow(0 3px 8px rgba(255,255,255,.12))">
+           style="height:clamp(68px,15vw,95px);filter:drop-shadow(0 3px 8px rgba(255,255,255,.12))">
+    </div>
+    <div class="cb" style="--r:5deg;--ty:-6px">
+      <img src="public/party-dancing.gif"
+           style="height:clamp(80px,18vw,118px);filter:drop-shadow(0 4px 10px rgba(74,222,128,.35))">
     </div>
   </div>
 </section>
@@ -582,34 +591,6 @@
   </div>
 </section>
 
-<!-- ══ ZELDA ══ -->
-<section id="zelda-section" class="section">
-  <h2 class="s-title" style="color:#fbbf24;text-shadow:0 0 20px rgba(251,191,36,.4)">
-    bonus stage
-  </h2>
-  <div class="zl-row">
-    <div class="zl" style="transform:rotate(-5deg)">
-      <img src="public/link-legend-of-zelda.gif" style="height:clamp(65px,16vw,95px);filter:drop-shadow(0 0 12px rgba(74,222,128,.5))">
-      <span style="color:#86efac">Link</span>
-    </div>
-    <div class="zl" style="transform:rotate(4deg) translateY(-6px)">
-      <img src="public/zelda-legend-of-zelda.gif" style="height:clamp(65px,16vw,95px);filter:drop-shadow(0 0 12px rgba(251,191,36,.5))">
-      <span style="color:#fde68a">Zelda</span>
-    </div>
-    <div class="zl" style="transform:rotate(-3deg) translateY(5px)">
-      <img src="public/malons-rose-malon-rose.gif" style="height:clamp(65px,16vw,95px);filter:drop-shadow(0 0 10px rgba(244,114,182,.5))">
-      <span style="color:#f9a8d4">Malon</span>
-    </div>
-    <div class="zl" style="transform:rotate(6deg)">
-      <img src="public/party-dancing.gif" style="height:clamp(65px,16vw,95px)">
-      <span style="color:#86efac">fiesta</span>
-    </div>
-    <div class="zl" style="transform:rotate(-4deg) translateY(-4px)">
-      <img src="public/jolly-jolly-dance.gif" style="height:clamp(65px,16vw,95px);filter:drop-shadow(0 0 9px rgba(168,85,247,.4))">
-      <span style="color:#c084fc">Jolly</span>
-    </div>
-  </div>
-</section>
 
 <footer>hecho con mucho verde para Marce &middot; 2025</footer>
 
